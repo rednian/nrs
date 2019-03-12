@@ -484,7 +484,7 @@
 												<i class="fa fa-image"></i>
 												Add Image
 											</button>
-											<input accept="image/*"  capture="environment" capture="camera" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/>
+											<input  accept="image/*"  capture="environment" capture="camera" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/>
 											<button data-toggle="modal" data-target="#camera" type="button" class="btn btn-default btn-sm btn-dashed-border">
 												<i class="fa fa-camera"></i>
 											</button>

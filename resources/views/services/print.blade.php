@@ -28,9 +28,8 @@
 		<section class="row">
 			<div class="col-md-1 col-sm-1 col-xs-12">
 				<img src="{{asset('img/nrs.png')}}" alt="" class="img img responsive" style="height: 50px; float: left">
-				<center> <h4>NRSInfoways</h4></center>
-				<center>Address: 103, Al Makhawi Building - Umm Hurair Rd - Dubai</center>
-				<center>Phone:  04 370 9181</center>
+				<span style="float: right">Address: 103, Al Makhawi Building - Umm Hurair Rd - Dubai</span><br>
+				<span style="float: right">Phone:  04 370 9181</span>
 			</div>
 				</section>
 		<h4 class="text-center">Service Authorization Form</h4>
@@ -211,8 +210,8 @@
 			<h5>Remarks: </h5>
 			<p style="border: 1px solid #ddd8e5; padding: 5px; text-indent: 15px;" >{{ucfirst($services->remarks)}}</p>
 		<p class="well well-sm" style="font-size: 12px">
-			I hereby authorize GALA Infotech Computer Trading to perform the necessary repair/replacement if changes are in the
-			limit mentioned above. I know GALA ICT will intimate me if there is any difference in repair charges or if the items is not repairable and I agree to the term and conditions given below.
+			I hereby authorize NRSInfoways to perform the necessary repair/replacement if changes are in the
+			limit mentioned above. I know NRSInfoways will intimate me if there is any difference in repair charges or if the items is not repairable and I agree to the term and conditions given below.
 		</p>
 		<table class="table table-bordered">
 			<tr>

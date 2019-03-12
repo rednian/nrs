@@ -85,7 +85,7 @@
 						<table class="table table-condensed flip-content" id="tblServices">
 							<thead class="flip-content">
 							<tr>
-								<th>Ref. #</th>
+								<th>Receipt. #</th>
 								<th>Customer Name</th>
 								<th>Mobile No.</th>
 								<th>Brand/Item</th>
@@ -160,7 +160,7 @@
 							}
 						],
 						columns: [
-							{data: 'service_id', name: 'service_id'},
+							{data: 'receipt_no', name: 'receipt_no'},
 							{data: 'customer_name', name: 'customer_name'},
 							{data: 'customer_mobile', name: 'customer_mobile'},
 							{data: 'brand', name: 'brand'},
@@ -174,11 +174,12 @@
 							{
 								render: function (data, type, full, meta) {
 
-									var service_id = full.service_id;
-
+									var id = full.service_id;
+									var url = '{{url('service')}}/'+id+'/qrcode';
 
 									return '<a onclick="view(this)" data-serviceid ="'+full.service_id+'" class="btn btn-xs btn-default"><span class="fa fa-folder-open text-primary"></span></a>' +
 													'<a onclick="printService(this)" data-serviceid ="'+full.service_id+'" class="btn btn-xs btn-default"><span class="fa fa-print text-default"></span></a>' +
+													// '<a href="'+url+'" class="btn btn-xs btn-default"><span class="fa fa-qrcode text-default"></span></a>' +
 													'<a onclick="destroy(this)" data-serviceid ="'+full.service_id+'"  class="btn btn-outline btn-xs btn-default"><span class="fa fa-trash text-danger"></span></a>';
 
 								}
@@ -229,7 +230,7 @@
 							$('#c-name').html(service.customer.customer_name);
 							$('#phone').html(service.customer.customer_phone);
 							$('#mobile').html(service.customer.customer_mobile);
-							$('#mobile').html(service.customer.customer_address);
+							$('#c-address').html(service.customer.customer_address);
 							$('#c-email').html(service.customer.customer_email);
 
 							$('#ref').html(service.receipt_no);
@@ -285,7 +286,7 @@
 								$('#services-images-container').html('');
 								$.each(service.images, function (index, image) {
 
-									var src = '{{asset('')}}storage/'+image.upload_path;
+									var src = '{{asset('')}}'+image.upload_path;
 
 									var html  = '<div class="col-sm-3">';
 										  html += '<img src="'+src+'" class="img img-thumbnail img-responsive"/>';

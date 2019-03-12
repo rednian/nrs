@@ -12,17 +12,17 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-xs-6">
+					<div class="col-sm-4">
 						<h4>Customer details:</h4>
 						<address>
 							Name : <span id="c-name"></span><br>
 							Email: <a href="mailto:#" id="c-email"></a><br>
-							Address: <span id="address"></span><br>
+							Address: <span id="c-address"></span><br>
 							<span class="fa fa-phone"></span> <abbr title="Phone"></abbr> <span id="phone"></span><br>
 							<span class="fa fa-mobile"></span><abbr title="mobile"></abbr> <span id="mobile"></span>
 						</address>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-sm-4">
 						<h4>Service information</h4>
 						<h5 id="service-brand"></h5>
 
@@ -32,9 +32,15 @@
 								<li>Reference No. :<span id="ref"></span></li>
 							</ul>
 
-
+					</div>
+					<div class="col-sm-3">
+						<div class="text-center">
+							{!! QrCode::size(100)->generate('crm.nrsinfoways.com/service/27/upload_form'); !!}
+							<p>scan to upload images</p>
+						</div>
 					</div>
 				</div>
+
 				<div class="row">
 					<div class="col-xs-12">
 						<table class="table table-hover">

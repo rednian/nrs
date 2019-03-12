@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectPath = '/dashboard';
+    protected $redirectPath = '/service';
 
 
     /**

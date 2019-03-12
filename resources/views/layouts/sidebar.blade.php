@@ -31,7 +31,8 @@
                     {{--</li>--}}
                 {{--</ul>--}}
             {{--</li>--}}
-            <li class="{{ Request::is('service/*') ? 'active open' : '' }}">
+{{--            <li class="{{ Request::is('service/*') ? 'active open' : '' }}">--}}
+            <li class="'active open">
                 <a href="javascript:;"><i class="fa fa-gears"></i>
                     <span class="title">Services</span>
                     <span class="arrow"></span>

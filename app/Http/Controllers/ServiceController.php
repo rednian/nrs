@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Service;
 use PDF;
+use QrCode;
 use Session;
 
 use App\Delivery;
@@ -20,7 +21,9 @@ class ServiceController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', [
+        	'except'=>['upload_form', 'upload']
+        ]);
     }
 
     public function index()
@@ -29,6 +32,38 @@ class ServiceController extends Controller
             'page_title' => 'Services',
             'breadcrumb' => 'services'
         ]);
+    }
+
+    public function upload_form()
+    {
+    	return view('services.upload');
+    }
+
+    public function upload(Request $request)
+    {
+	    if (!empty($request->images)){
+		    foreach ($request->images as  $image){
+			    $encoded_image = explode(",", $image)[1];
+			    $decoded_image = base64_decode($encoded_image);
+
+			    $now = Carbon::now();
+
+			    $service_path = public_path('images/services/'.$now->year.'/'.strtolower($now->format('F')));
+
+			    $raw_image = $request->service_id.'_'.rand(1111, 999999).'.png';
+
+			    if(!File::exists($service_path)){
+				    File::makeDirectory($service_path, $mode = 0777, true, true);
+			    }
+
+			    file_put_contents($service_path.'/'.$raw_image, $decoded_image);
+
+			    $request['upload_path'] ='images/services/'.$now->year.'/'.strtolower($now->format('F')).'/'.$raw_image;
+
+			    ServiceUploads::create($request->all());
+
+		    }
+	    }
     }
 
     public function printService(Request $request)
@@ -86,21 +121,29 @@ class ServiceController extends Controller
 
         }
 
-        if (!empty($request->images)){
-            $num = 1;
-            foreach ($request->images as  $image){
-                $encoded_image = explode(",", $image)[1];
-                $decoded_image = base64_decode($encoded_image);
+	    if (!empty($request->images)){
+		    foreach ($request->images as  $image){
+			    $encoded_image = explode(",", $image)[1];
+			    $decoded_image = base64_decode($encoded_image);
 
-                $now = Carbon::now();
+			    $now = Carbon::now();
 
-                $service_path = 'services/'.$now->year.'/'.strtolower($now->format('F')).'/'.$service->service_id.'_'.time().'.png';
-                Storage::put('public/'.$service_path, $decoded_image);
+			    $service_path = public_path('images/services/'.$now->year.'/'.strtolower($now->format('F')));
 
-                $service->images()->create(['upload_path'=>$service_path]);
+			    $raw_image = $service->service_id.'_'.rand(1111, 999999).'.png';
 
-            }
-        }
+			    if(!File::exists($service_path)){
+				    File::makeDirectory($service_path, $mode = 0777, true, true);
+			    }
+
+			    file_put_contents($service_path.'/'.$raw_image, $decoded_image);
+
+			    $request['upload_path'] ='images/service/'.$raw_image;
+
+			    ServiceUploads::create($request->all());
+
+		    }
+	    }
 	    Session::flash('success', 'The service was successfully save.');
     }
 
@@ -125,7 +168,6 @@ class ServiceController extends Controller
     	$service->delete();
     	return $service;
     }
-
 
     public function getServiceLists(Request $request)
     {
@@ -161,8 +203,8 @@ class ServiceController extends Controller
 
         return Datatables::of($data)
 
-            ->editColumn('service_id', function($service){
-            return str_pad($service->service_id, 5, '0', STR_PAD_LEFT);
+            ->editColumn('receipt_no', function($service){
+            return str_pad($service->receipt_no, 5, '0', STR_PAD_LEFT);
         })
             ->editColumn('problem_reported', function ($service){
                 return substr($service->problem_reported, 0, 50);
@@ -171,7 +213,7 @@ class ServiceController extends Controller
                 return substr($service->remarks, 0, 50);
             })
             ->editColumn('created_at', function($service){
-            return date('Y-m-d', strtotime($service->created_at));
+            return date('d-M-Y', strtotime($service->created_at));
         })
 //            ->rawColumns(['service_status'])
             ->make(true);

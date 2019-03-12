@@ -9,8 +9,8 @@
                 <video id="video" style="width: 100%; height: 100%" autoplay="true"></video>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn default" data-dismiss="modal">Close</button>
-                <button id="capture" type="button" class="btn blue">Save changes</button>
+                <button type="button" class="btn default btn-sm" data-dismiss="modal">Close</button>
+                <button id="capture" type="button" class="btn btn-sm blue">Capture</button>
             </div>
         </div>
     </div>
