@@ -30,20 +30,22 @@
 								<li>Serial Number : <span id="modal-service-serial"></span></li>
 								<li>Model No. :<span id="service-model"></span></li>
 								<li>Reference No. :<span id="ref"></span></li>
+								<li>Status :<span id="status-service"></span></li>
 							</ul>
 
 					</div>
 					<div class="col-sm-3">
-						<div class="text-center">
-							{!! QrCode::size(100)->generate('crm.nrsinfoways.com/service/27/upload_form'); !!}
-							<p>scan to upload images</p>
+						<div class="text-center" id="qrcode-container">
+
+
 						</div>
+						<p class="text-center">scan to upload images</p>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="col-xs-12">
-						<table class="table table-hover">
+						<table class="table">
 							<thead>
 							<tr>
 								<th>Preliminary Inspection</th>

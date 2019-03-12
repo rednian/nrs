@@ -50,12 +50,12 @@
 					<td colspan="3">Name :  {{ucwords($services->customer->customer_name)}}</td>
 				</tr>
 				<tr>
-					<td colspan="3">Address : {{ucwords($services->customer->customer_address)}}</td>
+					<td colspan="3">Address : {{($services->customer->customer_address)}}</td>
 				</tr>
 				<tr>
-					<td>Phone: {{ucwords($services->customer->customer_phone)}}</td>
-					<td>Mobile: {{ucwords($services->customer->customer_mobile)}}</td>
-					<td>Email: {{ucwords($services->customer->customer_email)}}</td>
+					<td>Phone: {{($services->customer->customer_phone)}}</td>
+					<td>Mobile: {{($services->customer->customer_mobile)}}</td>
+					<td>Email: {{($services->customer->customer_email)}}</td>
 				</tr>
 				<tr>
 					<td>Item/Brand : {{ucwords($services->brand)}}</td>
@@ -217,7 +217,7 @@
 			<tr>
 				<td>
 					<div style="height: 50px; overflow:hidden;">
-						Customer sign
+					Receiver sign
 					</div>
 				</td>
 				<td>Date</td>
@@ -231,19 +231,19 @@
 				of the same if any dispute or legal action/enquiry arises.
 			</li>
 			<li>
-				I further acknowledge and agree that I have backed up the data on my hard drive and understand that gala infotech cannot be
+				I further acknowledge and agree that I have backed up the data on my hard drive and understand that NRSInfoways cannot be
 				responsible for any loss of data or programs from my hard drive.
 			</li>
 			<li>
-				Gala infotech is not responsible for keeping or returning defective parts that are replaced as part of the repair unless specifically
+				NRSInfoways is not responsible for keeping or returning defective parts that are replaced as part of the repair unless specifically
 				requested by the customer prior to acceptance of our repair estimate.
 			</li>
 			<li>
-				I agree to collect the above items back within 40 days from today. I also agree that gala infotech cannot be held
+				I agree to collect the above items back within 40 days from today. I also agree that NRSInfoways cannot be held
 				responsible for any loss or damage afterwards.
 			</li>
 			<li>
-				I understand that gala infotech will due care of my equipment. however I agree that the items are left at gala at my sole risk.
+				I understand that NRSInfoways will due care of my equipment. however I agree that the items are left at NRSInfoways at my sole risk.
 			</li>
 		</ul>
 	</section>

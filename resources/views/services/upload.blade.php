@@ -16,7 +16,7 @@
 						<form action="{{route('service.upload')}}" method="post" id="frm-upload" enctype="multipart/form-data">
 							@csrf
 							<div class="form-group">
-								<input type="text" class="form-control"value="27" name="service_id">
+								<input type="hidden" class="form-control"value="{{Request::segment(2)}}" name="service_id">
 							</div>
 
 							<section class="row">
@@ -44,7 +44,6 @@
 								<button class="btn btn-sm btn-success">upload image</button>
 							</div>
 
-
 						</form>
 					</section>
 				</div>
@@ -66,7 +65,16 @@
 					data: $(this).serialize() + '&' + $.param({images: images}),
 					dataType: 'JSON'
 				}).done(function (response) {
-					{{--location.replace('{{route('service.index')}}');--}}
+					new PNotify({
+						type: 'success',
+						delay: 3000,
+						title: 'Success!',
+						text: 'Image(s) successfully added.',
+						after_close: function(notice, timer_hide) {
+							location.replace('{{route('service.index')}}');
+						}
+					});
+
 				});
 
 			});

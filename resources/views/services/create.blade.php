@@ -260,7 +260,7 @@
 													<label>Internal/External HDD</label>
 													<div class="md-checkbox-inline">
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox1" class="md-check">
+															<input type="checkbox" id="checkbox1" value="1" class="md-check">
 															<label for="checkbox1">
 																<span></span>
 																<span class="check"></span>
@@ -269,7 +269,7 @@
 															</label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox2" class="md-check">
+															<input type="checkbox" id="checkbox2" value="1" class="md-check">
 															<label for="checkbox2">
 																<span></span>
 																<span class="check"></span>
@@ -277,19 +277,27 @@
 																3.5 </label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox3" class="md-check">
+															<input type="checkbox" id="checkbox3" value="1" class="md-check">
 															<label for="checkbox3">
 																<span></span>
 																<span class="check"></span>
 																<span class="box"></span>
 																1.8 </label>
 														</div>
+														<div class="md-checkbox">
+															<input type="checkbox" name="recovery_laptop" value="1" id="recovery_laptop" class="md-check">
+															<label for="recovery_laptop">
+																<span></span>
+																<span class="check"></span>
+																<span class="box"></span>
+																Laptop </label>
+														</div>
 													</div>
 
 													<label>Server</label>
 													<div class="md-checkbox-inline">
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox4" class="md-check">
+															<input name="recovery_scsi" type="checkbox" id="checkbox4" value="1" class="md-check">
 															<label for="checkbox4">
 																<span></span>
 																<span class="check"></span>
@@ -298,7 +306,7 @@
 															</label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox5" class="md-check">
+															<input name="recovery_sata" type="checkbox" id="checkbox5 " value="1" class="md-check">
 															<label for="checkbox5">
 																<span></span>
 																<span class="check"></span>
@@ -306,7 +314,7 @@
 																SATA </label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox6" class="md-check">
+															<input name="recovery_sas" type="checkbox" id="checkbox6" value="1" class="md-check">
 															<label for="checkbox6">
 																<span></span>
 																<span class="check"></span>
@@ -314,7 +322,7 @@
 																SAS </label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox7" class="md-check">
+															<input name="recovery_nas" type="checkbox" id="checkbox7" value="1" class="md-check">
 															<label for="checkbox7">
 																<span></span>
 																<span class="check"></span>
@@ -326,7 +334,7 @@
 													<label>Memory Card</label>
 													<div class="md-checkbox-inline">
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox8" class="md-check">
+															<input name="recovery_ssd" type="checkbox" value="1" id="checkbox8" class="md-check">
 															<label for="checkbox8">
 																<span></span>
 																<span class="check"></span>
@@ -335,7 +343,7 @@
 															</label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox9" class="md-check">
+															<input name="recovery_flash" value="1" type="checkbox" id="checkbox9" class="md-check">
 															<label for="checkbox9">
 																<span></span>
 																<span class="check"></span>
@@ -344,7 +352,7 @@
 															</label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox10" class="md-check">
+															<input name="recovery_mobile" value="1" type="checkbox" id="checkbox10" class="md-check">
 															<label for="checkbox10">
 																<span></span>
 																<span class="check"></span>
@@ -353,7 +361,7 @@
 															</label>
 														</div>
 														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox11" class="md-check">
+															<input name="recovery_tablet" value="1" type="checkbox" id="checkbox11" class="md-check">
 															<label for="checkbox11">
 																<span></span>
 																<span class="check"></span>
@@ -575,7 +583,7 @@
 					data: $(this).serialize() + '&' + $.param({images: images}),
 					dataType: 'JSON'
 				}).done(function (response) {
-					window.open('{{route('service.print')}}');
+					window.open('{{route('service.printoncreate')}}');
 					location.replace('{{route('service.index')}}');
 				});
 

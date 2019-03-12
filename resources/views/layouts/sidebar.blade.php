@@ -35,9 +35,9 @@
             <li class="'active open">
                 <a href="javascript:;"><i class="fa fa-gears"></i>
                     <span class="title">Services</span>
-                    <span class="arrow"></span>
+                    <span class="arrow open"></span>
                 </a>
-                <ul class="sub-menu">
+                <ul class="sub-menu" style="display: block;">
                     <li class="{{ Request::is('service/create') ? 'active' : '' }}">
                         <a href="{{route('service.create')}}"><i class="fa fa-pencil"></i>New Service</a>
                     </li>
@@ -50,9 +50,9 @@
                 <a href="javascript:;">
                     <i class="fa fa-calendar-o"></i>
                     <span class="title">Delivery</span>
-                    <span class="arrow"></span>
+                    <span class="arrow open"></span>
                 </a>
-                <ul class="sub-menu">
+                <ul class="sub-menu" style="display: block;">
                     <li class="{{ Request::is('delivery/create') ? 'active' : '' }}">
                         <a href="{{route('delivery.create')}}"><i class="fa fa-pencil"></i>New Delivery</a>
                     </li>

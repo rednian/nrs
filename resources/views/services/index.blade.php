@@ -205,16 +205,22 @@
 				function printService(el) {
 					var service_id = $(el).data('serviceid');
 					$.ajax({
-						url: '{{url('service/print')}}',
-						data: {service_id: service_id}
+						url: '{{url('service/print')}}/'+service_id,
+						// data: {service_id: service_id}
 					}).done(function (response) {
-						window.open('{{route('service.print')}}');
+
+						window.open('{{url('service/print')}}/'+service_id);
 					});
 				}
 
 				function view(el) {
 
 					var service_id = $(el).data('serviceid');
+
+					$('#pre-inspection').html('');
+					$('#modal-accessories-received').html('');
+					$('#services-images-container').html('');
+
 					$.ajax({
 						url: '{{url('service')}}'+'/'+service_id,
 						data: {service_id: service_id},
@@ -222,30 +228,28 @@
 					}).done(function (response) {
 
 						$('#show-service').modal('show');
-						$('#pre-inspection').html('');
-						$('#modal-accessories-received').html('');
 
 						$.each(response, function (index, service) {
 
-							$('#c-name').html(service.customer.customer_name);
-							$('#phone').html(service.customer.customer_phone);
-							$('#mobile').html(service.customer.customer_mobile);
-							$('#c-address').html(service.customer.customer_address);
-							$('#c-email').html(service.customer.customer_email);
+							$('#qrcode-container').html(service.qr);
+							$('#c-name').html(service.customer_name);
+							$('#phone').html(service.customer_phone);
+							$('#mobile').html(service.customer_mobile);
+							$('#c-address').html(service.customer_address);
+							$('#c-email').html(service.customer_email);
 
 							$('#ref').html(service.receipt_no);
 							$('#service-brand').html(service.brand);
 							$('#modal-service-serial').html(service.serial);
 							$('#service-model').html(service.model);
-							$('#problem').html(service.problem_presented);
+							$('#problem').html(service.problem_reported);
 							$('#remarks-show').html(service.remarks);
 
-							var date = new Date(service.created_at);
-							var day = date.getDate();
-							var month = date.getMonth();
-							var year = date.getFullYear();
-							var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-							$('#date').html(day+'-'+months[month]+'-'+year);
+
+							var status = (service.service_status === 'done') ? 'label-success' : 'label-default';
+							$('#status-service').html('<span class="label '+status+'">'+service.service_status+'</span>');
+
+
 
 							var preliminary = service.laptop_broken_lcd == 1 ?  '<li>Broken LCD</li>' : '';
 							   preliminary += service.laptop_display_flickering == 1 ?  '<li>Display Flickering</li>' : '';
@@ -282,24 +286,35 @@
 
 							   		 $('#modal-accessories-received').append(acc_received);
 
-							if(!$.isEmptyObject(service.images)){
-								$('#services-images-container').html('');
-								$.each(service.images, function (index, image) {
 
+
+							if(!$.isEmptyObject(service.images)){
+								console.log(service.images);
+								$.each(service.images, function (index, image) {
 									var src = '{{asset('')}}'+image.upload_path;
 
-									var html  = '<div class="col-sm-3">';
+									var html  = '<div class="col-sm-2">';
 										  html += '<img src="'+src+'" class="img img-thumbnail img-responsive"/>';
 										  html += '</div>';
+
 										 $('#services-images-container').append(html);
 								});
 							}
 							else{
-								var html  = '<div class="col-sm-3">';
-								html		  += '<img src="{{asset('img/default.png')}}" class="img img-thumbnail img-responsive"/>';
-								html 			+= '</div>';
-								$('#services-images-container').html(html);
+								{{--var html  = '<div class="col-sm-3">';--}}
+								{{--html		  += '<img src="{{asset('img/default.png')}}" class="img img-thumbnail img-responsive"/>';--}}
+								{{--html 			+= '</div>';--}}
+								{{--$('#services-images-container').html(html);--}}
 							}
+
+							// console.log(service.created_at.date);
+
+							// var date = new Date(service.created_at.date);
+							// var day = date.getDate();
+							// var month = date.getMonth();
+							// var year = date.getFullYear();
+							// var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+							// $('#date').html(day+'-'+months[month]+'-'+year);
 
 						});
 					});
@@ -345,6 +360,10 @@
 							data: {'_method':'DELETE' , service_id: service_id},
 							type: 'post'
 						}).done(function (response) {
+							new PNotify({
+								type: 'success',
+								text: 'Service Successfully deleted.'
+							});
 							$('#tblServices').DataTable().ajax.reload();
 						});
 

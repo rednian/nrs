@@ -55,7 +55,13 @@ class Service extends Model
         'delivery',
         'delivery_date',
         'delivery_address',
-        'receipt_no'
+        'receipt_no',
+        'internal_18',
+        'internal_25',
+        'internal_35',
+		    'external_18',
+		    'external_25',
+		    'external_35',
     ];
 
     protected $dates = ['deleted_at'];

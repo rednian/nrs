@@ -24,7 +24,8 @@ Route::get('service/{service}/upload_form', 'ServiceController@upload_form')->na
 Route::post('service/upload', 'ServiceController@upload')->name('service.upload');
 Route::get('service/{service}/qrcode', 'ServiceController@qrcode')->name('service.qrcode');
 Route::post('service/status', 'ServiceController@updatestatus')->name('service.status');
-Route::get('service/print', 'ServiceController@printService')->name('service.print');
+Route::get('service/print/{service}', 'ServiceController@printService')->name('service.print');
+Route::get('service/printoncreate', 'ServiceController@printOnCreate')->name('service.printoncreate');
 Route::get('service/serviceLists', 'ServiceController@getServiceLists')->name('service.dataTable');
 Route::resource('service', 'ServiceController');
 
