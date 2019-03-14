@@ -27,31 +27,31 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">Name</label>
 										<div class="col-md-9">
-											<input name="customer_name" type="text" class="form-control input-sm select2 " id="customer-name">
+											<input autocomplete="off" name="customer_name" type="text" class="form-control input-sm select2 " id="customer-name">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Mobile</label>
 										<div class="col-md-9">
-											<input name="customer_mobile" type="text" class="form-control input-sm" id="mobile">
+											<input autocomplete="off" name="customer_mobile" type="text" class="form-control input-sm" id="mobile">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Phone</label>
 										<div class="col-md-9">
-											<input name="customer_phone" type="text" class="form-control input-sm">
+											<input autocomplete="off" name="customer_phone" type="text" class="form-control input-sm">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Email</label>
 										<div class="col-md-9">
-											<input name="customer_email" type="text" class="form-control input-sm" id="email">
+											<input autocomplete="off" name="customer_email" type="text" class="form-control input-sm" id="email">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Address</label>
 										<div class="col-md-9">
-											<textarea name="customer_address" id="address" class="form-control" rows="3"></textarea>
+											<textarea autocomplete="off" name="customer_address" id="address" class="form-control" rows="3"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
@@ -74,13 +74,13 @@
 										<div class="form-group">
 											<label class="control-label col-md-3">Delivery Date</label>
 											<div class="col-md-9">
-												<input name="delivery_date" value="{{date('Y-m-d')}}" id="delivery-date" type="date" class="form-control input-sm">
+												<input autocomplete="off" name="delivery_date" value="{{date('Y-m-d')}}" id="delivery-date" type="date" class="form-control input-sm">
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="control-label col-md-3">Delivery Address</label>
 											<div class="col-md-9">
-												<textarea class="form-control input-sm" name="delivery_address" id="delivery-address" rows="3" placeholder="leave empty if delivery address is the same above"></textarea>
+												<textarea class="form-control input-sm" autocomplete="off" name="delivery_address" id="delivery-address" rows="3" placeholder="leave empty if delivery address is the same above"></textarea>
 											</div>
 										</div>
 									</section>
@@ -92,19 +92,19 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">Item/Brand</label>
 										<div class="col-md-9">
-											<input name="brand" type="text" class="form-control input-sm" id="item">
+											<input autocomplete="off" name="brand" type="text" class="form-control input-sm" id="item">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Model</label>
 										<div class="col-md-9">
-											<input name="model" type="text" class="form-control input-sm" id="model">
+											<input autocomplete="off" name="model" type="text" class="form-control input-sm" id="model">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">S/N</label>
 										<div class="col-md-9">
-											<input name="serial" type="text" class="form-control input-sm" id="serial">
+											<input autocomplete="off" name="serial" type="text" class="form-control input-sm" id="serial">
 										</div>
 									</div>
 									<div class="form-group">
@@ -125,7 +125,7 @@
 											<section class="row" id="laptop-container">
 												<div class="col-md-6 col-sm-6 col-xs-12">
 
-													<div class="md-checkbox-list">
+													<div class="md-checkbox-list" >
 														<div class="md-checkbox">
 															<input name="laptop_broken_lcd" type="checkbox" value="1" id="broken-lcd" class="md-check">
 															<label for="broken-lcd">
@@ -257,8 +257,8 @@
 												<div class="col-md-12 col-sm-12 col-xs-12">
 
 
-													<label>Internal/External HDD</label>
-													<div class="md-checkbox-inline">
+													<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
+													<label>Internal/External HDD</label><br>
 														<div class="md-checkbox">
 															<input type="checkbox" id="checkbox1" value="1" class="md-check">
 															<label for="checkbox1">
@@ -294,8 +294,9 @@
 														</div>
 													</div>
 
-													<label>Server</label>
-													<div class="md-checkbox-inline">
+												
+													<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
+														<label>Server</label><br>
 														<div class="md-checkbox">
 															<input name="recovery_scsi" type="checkbox" id="checkbox4" value="1" class="md-check">
 															<label for="checkbox4">
@@ -331,8 +332,8 @@
 														</div>
 													</div>
 
-													<label>Memory Card</label>
-													<div class="md-checkbox-inline">
+													<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
+													<label>Memory Card</label><br>
 														<div class="md-checkbox">
 															<input name="recovery_ssd" type="checkbox" value="1" id="checkbox8" class="md-check">
 															<label for="checkbox8">
@@ -470,13 +471,13 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">Problem Reported</label>
 										<div class="col-md-9">
-											<textarea name="problem_reported" class="form-control input-sm" rows="3"></textarea>
+											<textarea autocomplete="off" name="problem_reported" class="form-control input-sm" rows="3"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Remarks</label>
 										<div class="col-md-9">
-											<textarea name="remarks" class="form-control input-sm" rows="3"></textarea>
+											<textarea autocomplete="off" name="remarks" class="form-control input-sm" rows="3"></textarea>
 										</div>
 									</div>
 									<section class="row">
@@ -492,7 +493,7 @@
 												<i class="fa fa-image"></i>
 												Add Image
 											</button>
-											<input  accept="image/*"  capture="environment" capture="camera" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/>
+											<input  accept="image/*"  capture="camera" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/>
 											<button data-toggle="modal" data-target="#camera" type="button" class="btn btn-default btn-sm btn-dashed-border">
 												<i class="fa fa-camera"></i>
 											</button>
@@ -531,10 +532,72 @@
 		var images = [];
 		$(document).ready(function () {
 
+			$('input[name=customer_mobile]').focusout(function(){
+				$.ajax({
+				url: '{{ url('service/mobileexist') }}',
+				type: 'get',
+				dataType : 'json',
+				data: {customer_mobile : $(this).val()}
+				}).done(function(response){
+					if(response.exist == 1){
+
+						(new PNotify({
+						    title: 'Customer mobile number exist',
+						    text: 'Do you want to retrieve the Information?',
+						    icon: 'fa fa-question-sign',
+						    hide: false,
+						    confirm: {
+						        confirm: true
+						    },
+						    buttons: {
+						        closer: false,
+						        sticker: false
+						    },
+						    history: {
+						        history: false
+						    }
+						})).get().on('pnotify.confirm', function() {
+						    
+						 $('input[name=customer_name]').val(response.data.customer_name);
+						 $('input[name=customer_mobile]').val(response.data.customer_mobile);
+						 $('input[name=customer_email]').val(response.data.customer_email);
+						 $('input[name=customer_phone]').val(response.data.customer_phone);
+						 $('textarea[name=customer_address]').val(response.data.customer_address);
+
+						}).on('pnotify.cancel', function() {
+						    alert('Oh ok. Chicken, I see.');
+						});
+					
+					}
+					
+				});
+			});
+
+
+			$('#serial').focusout(function(){
+			
+				$.ajax({
+				url: '{{ url('service/serialexist') }}',
+				type: 'get',
+				dataType : 'json',
+				data: {serial : $(this).val()}
+				}).done(function(response){
+					if(response.exist == 1){
+						new PNotify({
+						type: 'info',
+						text: response.message
+					})	
+					}
+				;
+				});
+			});
+
 
 			$('button.reset').click(function () {
 				serviceType();
+
 				$('#delivery-container').hide();
+
 
 			});
 
@@ -607,6 +670,7 @@
 			startCamera();
 			stopCamera();
 			deleteImage();
+
 
 			//take image
 			document.getElementById("capture").addEventListener("click", function () {

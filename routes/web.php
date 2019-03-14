@@ -13,13 +13,15 @@
 
 Auth::routes();
 Route::get('/', function () {
-    return redirect('dashboard');
+    return redirect('service');
 });
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 //SERVICES
 //QR code
+Route::any('service/mobileexist', 'ServiceController@mobileexist');
+Route::any('service/serialexist', 'ServiceController@serialexist')->name('service.serialexist');
 Route::get('service/{service}/upload_form', 'ServiceController@upload_form')->name('service.upload');
 Route::post('service/upload', 'ServiceController@upload')->name('service.upload');
 Route::get('service/{service}/qrcode', 'ServiceController@qrcode')->name('service.qrcode');

@@ -344,10 +344,10 @@
               <img alt="" class="img-circle" src="../../assets/admin/layout4/img/avatar9.jpg"/>
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
-              <li>
+           {{--    <li>
                 <a href="extra_profile.html">
                   <i class="icon-user"></i> My Profile </a>
-              </li>
+              </li> --}}
               {{-- <li>
                 <a href="page_calendar.html">
                   <i class="icon-calendar"></i> My Calendar </a>

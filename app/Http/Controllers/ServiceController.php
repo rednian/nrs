@@ -14,6 +14,7 @@ use App\ServiceUploads;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,8 +35,12 @@ class ServiceController extends Controller
         ]);
     }
 
-    public function upload_form()
+    public function upload_form(Request $request)
     {
+      if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+     
     	return view('services.upload');
     }
 
@@ -161,9 +166,11 @@ class ServiceController extends Controller
       $data = [];
 
       foreach ($services as $service){
+ 
       	$data[] = [
       		'service_status'=>$service->service_status,
-      		'qr'=> '<img src="data:image/png;base64, '.base64_encode(QrCode::format('png')->size(150)->generate(url('service/'.$service->service_id.'/upload_form'))).'">'	,
+      		// 'qr'=> '<img src="data:image/png;base64, '.base64_encode(QrCode::format('png')->size(150)->generate(url('service/'.$service->service_id.'/upload_form'))).'">'	,
+          'qr'=> '<img src="data:image/png;base64, '.base64_encode(QrCode::format('png')->size(150)->generate(URL::signedRoute('service.upload', now()->addMinutes(5), ['service_id' => $service->service_id]))).'">'  ,
       		'service_id'=>$service->service_id,
       		'customer_id'=>$service->customer_id,
       		'brand'=>$service->brand,
@@ -209,6 +216,7 @@ class ServiceController extends Controller
 		      'customer_mobile'=> $service->customer->customer_mobile,
 		      'customer_phone'=> $service->customer->customer_phone,
 		      'customer_email'=> $service->customer->customer_email,
+          'customer_address'=> $service->customer->customer_address,
 
 	      ];
       	foreach ($service->images as $image){
@@ -234,13 +242,50 @@ class ServiceController extends Controller
 
     public function destroy(Request $request)
     {
+
+
     	$service = Service::find($request->service_id);
-    	$service->delete();
+
+    	// $service->delete();
+
+       // if(!File::exists()){
+           
+       //    }
+
     	return $service;
+    }
+
+    public function mobileexist(Request $request)
+    {
+      $customer = Customer::where('customer_mobile', $request->customer_mobile)->first();
+       if ($customer) {
+        return response()->json([
+          'data'=> $customer,
+           'exist'=> 1
+        ]);
+      }
+      return [];
+    }
+
+    public function serialexist(Request $request)
+    {
+      $service = Service::where('serial', $request->serial)->first();
+
+
+      if ($service) {
+        return response()->json([
+          'message'=> 'Serial number '.$service->serial. ' detected with the brand/item '.$service->brand.'.',
+          'exist'=> 1
+        ]);
+      }
+      return [];
     }
 
     public function getServiceLists(Request $request)
     {
+
+  
+
         $data = DB::table('services')
             ->join('customers', 'services.customer_id', '=', 'customers.customer_id')
             ->when($request->service_status , function ($query) use ($request){
@@ -259,13 +304,15 @@ class ServiceController extends Controller
                 $query->where('customers.customer_email', $request->customer_email);
             })
             ->when($request->created_at, function ($query) use ($request){
+
+          
                 $dates = explode('-', $request->created_at);
 
-                $start = date('Y-m-d', strtotime($dates[0]));
-                $end = date('Y-m-d', strtotime($dates[0]));
-
-                $query->where('services.created_at', '>=', $start);
-                $query->where('services.created_at', '=<', $end);
+             
+                $query->where('services.created_at', '>=', date('Y-m-d', strtotime(trim($dates[0]))));
+                $query->where('services.created_at', '<=', date('Y-m-d', strtotime(trim($dates[1]))));
+        
+      
             })
 	          ->whereNull('deleted_at')
             ->orderBy('services.created_at', 'DESC')

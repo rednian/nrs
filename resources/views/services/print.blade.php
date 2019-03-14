@@ -32,7 +32,7 @@
 				<span style="float: right">Phone:  04 370 9181</span>
 			</div>
 				</section>
-		<h4 class="text-center">Service Authorization Form</h4>
+		<h2 class="text-center" style="font-size: 18px;">Service Authorization Form</h2>
 
 		<section class="row">
 			<div class="col-md-7 pull-left">
@@ -64,7 +64,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<h4 class="text-center">Preliminary Inspection Report</h4>
+		<h4 class="text-center" style="font-size: 16px;">Preliminary Inspection Report</h4>
 		<?php
 			$laptop = [
 			    $services->laptop_broken_lcd,
@@ -160,7 +160,7 @@
 									@if($services->laptop_optical_drive_damage == 1)
 										<li>Optical Drive physical damage</li>
 									@endif
-						@endif
+								@endif
 
 								@if(in_array(1, $lcd))
 									@if($services->lcd_scratches == 1) <li>Scratches / Marks / Lines in LCD</li> @endif

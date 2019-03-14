@@ -231,6 +231,7 @@
 
 						$.each(response, function (index, service) {
 
+
 							$('#qrcode-container').html(service.qr);
 							$('#c-name').html(service.customer_name);
 							$('#phone').html(service.customer_phone);
