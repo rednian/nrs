@@ -15,8 +15,8 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=sall" rel="stylesheet"
-          type="text/css">
+{{--     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=sall" rel="stylesheet"
+          type="text/css"> --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{asset('/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('/plugins/simple-line-icons/simple-line-icons.min.css')}}" rel="stylesheet" type="text/css">
@@ -29,6 +29,15 @@
 
     <link href="<?php echo asset('/plugins/validation/css/formValidation.min.css'); ?>" rel="stylesheet"/>
     <link href="<?php echo asset('/plugins/pnotify/pnotify.custom.min.css'); ?>" rel="stylesheet"/>
+    <link href="<?php echo asset('/plugins/file-icons/css/style.css'); ?>" rel="stylesheet"/>
+    <style>
+        .img {
+          background: transparent url('http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif') center no-repeat;
+        }
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+          background-color: #dedfe0;
+        }
+    </style>
 
     @yield('style')
     <link href="{{asset('/css/components-rounded.css')}}" id="style_components" rel="stylesheet" type="text/css"/>

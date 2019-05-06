@@ -39,6 +39,7 @@ class Service extends Model
         'accessories_toner_cartridge',
         'accessories_ink_cartridge',
         'accessories_data_cable',
+        'accessories_others',
         'recovery_hdd',
         'recovery_laptop',
         'recovery_scsi',
@@ -52,6 +53,8 @@ class Service extends Model
         'problem_reported',
         'remarks',
         'service_date',
+        'service_status',
+        'service_status_reason',
         'delivery',
         'delivery_date',
         'delivery_address',
@@ -59,9 +62,9 @@ class Service extends Model
         'internal_18',
         'internal_25',
         'internal_35',
-		    'external_18',
-		    'external_25',
-		    'external_35',
+	    'external_18',
+	    'external_25',
+	    'external_35',
     ];
 
     protected $dates = ['deleted_at'];
@@ -74,6 +77,11 @@ class Service extends Model
     public function images()
     {
         return $this->hasMany(ServiceUploads::class, 'service_id');
+    }
+
+    public function files()
+    {
+        return $this->hasMany(ServiceFile::class, 'service_id');
     }
 
     public function customer()

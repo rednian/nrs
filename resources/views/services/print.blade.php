@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	{{--<link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.css')}}">--}}
-	{{--<script src="{{asset('plugins/bootstrap/js/bootstrap.js')}}"></script>--}}
+	<title>Service Authorzation Form | {{$services->receipt_no}}</title>
+	{{-- <link rel="stylesheet" href="{{asset('plugins/bootstrap/css/bootstrap.css')}}"> --}}
+	{{-- <script src="{{asset('plugins/bootstrap/js/bootstrap.js')}}"></script> --}}
 	<style>/*!
  * Bootstrap v3.3.5 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -20,7 +20,13 @@
 		h4{
 			font-size: 14px;
 		}
+		/
 
+	</style>
+	<style>
+		table, tr, td, th{
+			border: 1px solid #000 !important;
+		}
 	</style>
 </head>
 <body>
@@ -36,7 +42,7 @@
 
 		<section class="row">
 			<div class="col-md-7 pull-left">
-				Receipt No. <code>{{ str_pad($services->receipt_no, 6, '0', STR_PAD_LEFT) }}</code>
+				Receipt No. <code style="color: #000;"><strong>{{ str_pad($services->receipt_no, 6, '0', STR_PAD_LEFT) }}</strong></code>
 			</div>
 			<div class="col-md-5 pull-right">
 				<ul class="list-unstyled">
@@ -73,7 +79,7 @@
 			    $services->laptop_loose_hinges,
 			    $services->laptop_missing_keys,
 			    $services->laptop_broken_sockets,
-			    $services->laptop_hdd_deffective,
+			    $services->laptop_hdd_defective,
 			    $services->laptop_optical_drive_damage,
 			];
 
@@ -111,26 +117,31 @@
 			    $services->recovery_flash,
 			    $services->recovery_mobile,
 			    $services->recovery_tablet,
+			    $services->internal_18,
+			    $services->internal_25,
+			    $services->internal_35,
 			];
 
 		?>
 			<table class="table table-bordered  table-condensed">
 			<thead>
 				<tr>
-					<td>Unit / Description</td>
+					{{-- <td>Unit / Description</td> --}}
 					<td>Problem Presented</td>
+					<td>Data Recovery</td>
 					<td>Accessories Received</td>
 				</tr>
 			</thead>
 				<tbody>
 				<tr>
-					<td>
-					<?php
-                        if(in_array(1, $laptop)){ echo 'Laptop';}
-                        if(in_array(1, $lcd)){ echo 'LCD Monitor';}
-                        if(in_array(1, $recovery)){ echo 'Data Recovery';}
-						?>
-					</td>
+				{{-- 	<td>
+						<ul>
+							@if(in_array(1, $laptop)) <li>Laptop</li> @endif
+							@if(in_array(1, $lcd)) <li>LCD Monito</li> @endif
+							@if(in_array(1, $recovery)) <li>Data Recovery</li> @endif
+						</ul>
+					
+					</td> --}}
 					<td>
 						<ul>
 							@if(in_array(1, $laptop))
@@ -168,8 +179,11 @@
 									@if($services->lcd_casing_broken == 1) <li>Casing Broken </li> @endif
 								@endif
 
-
-								@if(in_array(1, $recovery))
+						</ul>
+					</td>
+					<td>
+						<ul>
+									@if(in_array(1, $recovery))
 									@if($services->recovery_hdd == 1) <li>Internal/External HDD</li> @endif
 									@if($services->recovery_laptop == 1) <li>Recovery Laptop </li> @endif
 									@if($services->recovery_scsi == 1) <li> Recovery SCSI </li> @endif
@@ -180,10 +194,10 @@
 									@if($services->recovery_flash == 1) <li> Recovery Flash drive </li> @endif
 									@if($services->recovery_mobile == 1) <li> Recovery Mobile Phone</li> @endif
 									@if($services->recovery_tablet == 1) <li> Recovery Tablet</li> @endif
+									@if($services->internal_18 == 1) <li>Internal/External 1.8</li> @endif
+									@if($services->internal_25 == 1) <li>Internal/External 2.5</li> @endif
+									@if($services->internal_35 == 1) <li>Internal/External 3.5</li> @endif
 								@endif
-
-
-
 						</ul>
 					</td>
 					<td>
@@ -204,14 +218,14 @@
 				</tr>
 				</tbody>
 		</table>
-			<h5>Problem Presented by customer:</h5>
+			<h5>Problem Presented by the customer:</h5>
 
-		<p style="border: 1px solid #ddd8e5; padding: 5px; text-indent: 15px;" >{{ucfirst($services->problem_reported)}}</p>
+		<p style="border: 1px solid #000; padding: 5px; text-indent: 15px;" >{{ucfirst($services->problem_reported)}}</p>
 			<h5>Remarks: </h5>
-			<p style="border: 1px solid #ddd8e5; padding: 5px; text-indent: 15px;" >{{ucfirst($services->remarks)}}</p>
+			<p style="border: 1px solid #000; padding: 5px; text-indent: 15px;" >{{ucfirst($services->remarks)}}</p>
 		<p class="well well-sm" style="font-size: 12px">
-			I hereby authorize NRSInfoways to perform the necessary repair/replacement if changes are in the
-			limit mentioned above. I know NRSInfoways will intimate me if there is any difference in repair charges or if the items is not repairable and I agree to the term and conditions given below.
+			I hereby authorize NRS Infoways to perform the necessary repair/replacement if changes are in the
+			limit mentioned above. I know NRS Infoways will intimate me if there is any difference in repair charges or if the items is not repairable and I agree to the term and conditions given below.
 		</p>
 		<table class="table table-bordered">
 			<tr>
@@ -231,19 +245,19 @@
 				of the same if any dispute or legal action/enquiry arises.
 			</li>
 			<li>
-				I further acknowledge and agree that I have backed up the data on my hard drive and understand that NRSInfoways cannot be
+				I further acknowledge and agree that I have backed up the data on my hard drive and understand that NRS Infoways cannot be
 				responsible for any loss of data or programs from my hard drive.
 			</li>
 			<li>
-				NRSInfoways is not responsible for keeping or returning defective parts that are replaced as part of the repair unless specifically
+				NRS Infoways is not responsible for keeping or returning defective parts that are replaced as part of the repair unless specifically
 				requested by the customer prior to acceptance of our repair estimate.
 			</li>
 			<li>
-				I agree to collect the above items back within 40 days from today. I also agree that NRSInfoways cannot be held
+				I agree to collect the above items back within 40 days from today. I also agree that NRS Infoways cannot be held
 				responsible for any loss or damage afterwards.
 			</li>
 			<li>
-				I understand that NRSInfoways will due care of my equipment. however I agree that the items are left at NRSInfoways at my sole risk.
+				I understand that NRS Infoways will due care of my equipment. however I agree that the items are left at NRS Infoways at my sole risk.
 			</li>
 		</ul>
 	</section>

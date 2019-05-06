@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.upload')
 @section('content')
-    <section class="row">
+    <section class="row" id="overlay">
 			<div class="col-md-12">
 				<div class="portlet light">
 					<div class="portlet-title">
@@ -13,38 +13,76 @@
 						</div>
 					</div>
 					<section class="portlet-body" style="">
-						<form action="{{route('service.upload')}}" method="post" id="frm-upload" enctype="multipart/form-data">
-							@csrf
-							<div class="form-group">
-								<input type="hidden" class="form-control"value="{{Request::segment(2)}}" name="service_id">
+						<section class="row">
+							<div class="col-sm-4 col-md-4 col-xs-12">
+								<form action="{{route('service.upload')}}" method="post" id="frm-upload" enctype="multipart/form-data">
+									@csrf
+									<div class="form-group">
+										<input type="hidden" class="form-control"value="{{$service->service_id}}" name="service_id">
+									</div>
+									<div class="form-group">
+										<label for="receipt_no">Receipt No.</label>
+										<input type="text" class="form-control input-sm" value="{{ str_pad($service->receipt_no, 6, '0', STR_PAD_LEFT)}}" readonly>
+									</div>
+									<div class="form-group">
+										<label for="receipt_no">Item/Brand</label>
+										<input type="text" class="form-control input-sm" value="{{ $service->brand }}" readonly>
+									</div>
+
+									<div class="form-group">
+										<label for="receipt_no">Serial No.</label>
+										<input type="text" class="form-control input-sm" value="{{ $service->serial }}" readonly>
+									</div>
+
+									<div class="form-group">
+										<label for="">Upload Type</label>
+										<select name="upload_type" id="upload-type" class="form-control input-sm">
+											<option disabled selected>select upload type</option>
+											<option value="file">Service File</option>
+											<option value="note">Service Note</option>
+										</select>
+									</div>
+									<div class="form-group">
+										{{-- <label for="">Upload	</label> --}}
+										<label for="upload" class="form-control input-sm" style="cursor: pointer;">
+											<span class="fa fa-folder-open" aria-hidden="true"> browse files...</span>
+											<input name="files[]" type="file" id="upload" style="display:none" multiple>
+										</label>
+										 <div>
+										 	{{-- <div id="file-upload-filename"></div> --}}
+										 	<ul id="file-upload-filename" class="list-unstyled"></ul>
+										 </div>
+									</div>
+
+									<section class="row">
+										<div class="col-md-12">
+											<div id="image_container" class="img-responsive"></div>
+										</div>
+									</section>
+
+									<section class="row">
+
+										<div class="col-md-9 col-sm-9 col-xs-12" style="margin-top: 2%; margin-bottom: 1%;">
+
+											<button onclick="$('#file').trigger('click')" id="btnChooseImage" type="button" class="btn btn-default btn-sm btn-dashed-border">
+												<i class="fa fa-image"></i>
+												Add Image
+											</button>
+											{{-- <input  accept="image/*" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/> --}}
+											<input   accept="image/*" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/>
+											<button data-toggle="modal" data-target="#camera" type="button" class="btn btn-default btn-sm hidden-xs btn-dashed-border">
+												<i class="fa fa-camera"></i>
+											</button>
+										</div>
+									</section>
+
+									<div class="form-group" style="margin-top: 10%;">
+										<button class="btn btn-sm btn-success">Upload</button>
+									</div>
+
+								</form>
 							</div>
-
-							<section class="row">
-								<div class="col-md-12">
-									<div id="image_container" class="img-responsive"></div>
-								</div>
-							</section>
-
-							<section class="row">
-
-								<div class="col-md-9 col-sm-9 col-xs-12" style="margin-top: 2%; margin-bottom: 1%;">
-
-									<button onclick="$('#file').trigger('click')" id="btnChooseImage" type="button" class="btn btn-default btn-sm btn-dashed-border">
-										<i class="fa fa-image"></i>
-										Add Image
-									</button>
-									<input  accept="image/*"  capture="environment" capture="camera" onchange="readURL(this);" class="hide" type="file" multiple name="images[]" id="file" style="width: 100%;"/>
-									<button data-toggle="modal" data-target="#camera" type="button" class="btn btn-default btn-sm btn-dashed-border">
-										<i class="fa fa-camera"></i>
-									</button>
-								</div>
-							</section>
-
-							<div class="form-group">
-								<button class="btn btn-sm btn-success">upload image</button>
-							</div>
-
-						</form>
+						</section>
 					</section>
 				</div>
 			</div>
@@ -53,9 +91,47 @@
 @stop
 @section('script')
 	<script>
+
+		var input = document.getElementById( 'upload' );
+		var infoArea = document.getElementById( 'file-upload-filename' );
+
+
+
+		input.addEventListener( 'change', showFileName );
+
+		function showFileName( event ) {
+
+			console.log(fileName);
+		  
+		  var input = event.srcElement;
+		  
+		  var fileName = input.files[0].name;
+
+		  infoArea.innerHTML = getIcon(fileName)+' '+ fileName;
+		}
+
+
 		var images = [];
 
 		$(document).ready(function () {
+
+			$(document).bind("ajaxSend", function(){
+
+		   			$("#overlay").LoadingOverlay("show", {
+          				image: "",
+          				// fontawesome: "fa fa-circle-o-notch fa-spin spin  fa-5x",
+          				fontawesome: "fa fa-circle-o-notch fa-spin fa-4x",
+          				// text: '<span>Uploading image(s)...</span>'
+        			});
+
+		 }).bind("ajaxComplete", function(){
+		    	$("#overlay").LoadingOverlay("hide", true);
+		 });
+
+
+
+
+
 
 			$('form#frm-upload').submit(function (e) {
 				e.preventDefault();
@@ -63,22 +139,23 @@
 					url: $(this).attr('action'),
 					type: $(this).attr('method'),
 					data: $(this).serialize() + '&' + $.param({images: images}),
-					dataType: 'JSON'
 				}).done(function (response) {
-					new PNotify({
+					if(response.success){
+						new PNotify({	
 						type: 'success',
 						delay: 3000,
 						title: 'Success!',
-						text: 'Image(s) successfully added.',
+						text: response.message,
 						after_close: function(notice, timer_hide) {
-							location.replace('{{route('service.index')}}');
+							 location.replace('{{route('service.index')}}');
 						}
 					});
 
+					}
+				
 				});
 
 			});
-
 
 
 

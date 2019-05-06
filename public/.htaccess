@@ -3,7 +3,11 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    RewriteEngine On
+    RewriteCond %{HTTPS} off [OR]
+    RewriteCond %{HTTP_HOST} ^www\.crm.nrsinfoways\.com [NC]
+    RewriteRule (.*) https://crm.nrsinfoways.com/$1 [L,R=301] 
+
+    RewriteEngine On 
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .

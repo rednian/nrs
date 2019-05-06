@@ -58,13 +58,13 @@
         </div>
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label for="email" class="control-label visible-ie8 visible-ie9">{{ __('E-Mail Address') }}</label>
+            <label for="username" class="control-label visible-ie8 visible-ie9">{{ __('E-Mail Address') }}</label>
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input id="email" type="email" autocomplete="off" placeholder="Email" class="placeholder-no-fix form-control{{ $errors->has('email') ? ' sis-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-                @if ($errors->has('email'))
+                <input id="username" type="text" autocomplete="off" placeholder="Username" class="placeholder-no-fix form-control{{ $errors->has('username') ? ' sis-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
+                @if ($errors->has('username'))
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('email') }}</strong>
+                        <strong>{{ $errors->first('username') }}</strong>
                     </span>
                 @endif
             </div>
@@ -88,14 +88,14 @@
                 Login <i class="m-icon-swapright m-icon-white"></i>
             </button>
         </div>
-        <div class="forget-password">
+   {{--      <div class="forget-password">
             <h4>Forgot your password ?</h4>
             <p>
                 no worries, click <a href="javascript:;" id="forget-password">
                     here </a>
                 to reset your password.
             </p>
-        </div>
+        </div> --}}
 
     </form>
     <!-- END LOGIN FORM -->

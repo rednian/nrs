@@ -25,7 +25,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectPath = '/service';
+     protected $redirectPath = '/service';
 
 
     /**
@@ -36,5 +36,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectPath()
+    {
+        return route('service.index');
+    }
+
+    public function username()
+    {
+        return 'username';
     }
 }

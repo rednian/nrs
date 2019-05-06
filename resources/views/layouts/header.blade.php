@@ -2,7 +2,7 @@
   <!-- BEGIN HEADER INNER -->
   <div class="page-header-inner">
     <div class="page-logo">
-      <a href="{{route('dashboard')}}">
+      <a href="{{route('service.index')}}">
         <img src="{{asset('img/logo/nrs.png')}}" alt="logo" class=" img-responsive"/>
       </a>
       <div class="menu-toggler sidebar-toggler">
@@ -341,7 +341,7 @@
 						{{ Auth::user()->name }}
           </span>
               <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-              <img alt="" class="img-circle" src="../../assets/admin/layout4/img/avatar9.jpg"/>
+              <img alt="" class="img-circle" src="{{ asset('img/user.png') }}"/>
             </a>
             <ul class="dropdown-menu dropdown-menu-default">
            {{--    <li>
@@ -364,15 +364,15 @@
 								7 </span>
                 </a>
               </li> --}}
-              <li class="divider">
-              </li>
-{{--               <li>
-                <a href="extra_lock.html">
-                  <i class="icon-lock"></i> Lock Screen </a>
+            {{--   <li class="divider">
               </li> --}}
               <li>
+                <a href="#bs-example-modal-sm"  data-toggle="modal" >
+                  <i class="fa fa-key"></i> Change Password</a>
+              </li>
+              <li>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                  <i class="icon-key"></i> Log Out </a>
+                  <i class="fa fa-power-off"></i> Log Out </a>
               </li>
             </ul>
           </li>
@@ -385,6 +385,7 @@
   </div>
   <!-- END HEADER INNER -->
 </header>
+@include('layouts.password-modal')
 
   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
       @csrf

@@ -10,29 +10,15 @@
         <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
         <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
         <ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-            <li class="start {{ Request::is('dashboard*') ? 'active' : '' }}">
+     {{--        <li class="start {{ Request::is('dashboard*') ? 'active' : '' }}">
                 <a href="{{route('dashboard')}}">
                     <i class="icon-home"></i>
                     <span class="title">Dashboard</span>
                 </a>
-            </li>
-            {{--<li>--}}
-                {{--<a href="javascript:;">--}}
-                    {{--<i class="fa fa-user"></i>--}}
-                    {{--<span class="title">User</span>--}}
-                    {{--<span class="arrow "></span>--}}
-                {{--</a>--}}
-                {{--<ul class="sub-menu">--}}
-                    {{--<li>--}}
-                        {{--<a href="{{route('service.create')}}"><i class="fa fa-pencil"></i>New User</a>--}}
-                    {{--</li>--}}
-                    {{--<li>--}}
-                        {{--<a href="{{route('service.index')}}"><i class="fa fa-list"></i>Users List</a>--}}
-                    {{--</li>--}}
-                {{--</ul>--}}
-            {{--</li>--}}
-{{--            <li class="{{ Request::is('service/*') ? 'active open' : '' }}">--}}
-            <li class="'active open">
+            </li> --}}
+
+            <li class="{{ Request::is('service/*') ? 'active open' : '' }}">
+            <li class="open">
                 <a href="javascript:;"><i class="fa fa-gears"></i>
                     <span class="title">Services</span>
                     <span class="arrow open"></span>
@@ -46,7 +32,24 @@
                     </li>
                 </ul>
             </li>
-            <li class="{{ Request::is('delivery/*') ? 'active open' : '' }}">
+            @if (Auth::user()->username == 'admin')
+            <li class="{{ Request::is('user/*') || Request::is('register/*') ? 'active open' : '' }}">
+                <a href="javascript:;">
+                    <i class="fa fa-user"></i>
+                    <span class="title">User</span>
+                    <span class="arrow open"></span>
+                </a>
+                <ul class="sub-menu" style="display: block;">
+                    <li class="{{ Request::is('register') ? 'active' : '' }}">
+                        <a href="{{route('register')}}"><i class="fa fa-pencil"></i>New User</a>
+                    </li>
+                    <li class="{{ Request::is('user/*') ? 'active' : '' }}">
+                        <a href="{{route('user.index')}}"><i class="fa fa-list"></i>Users List</a>
+                    </li>
+                </ul>
+            </li>
+            @endif
+{{--             <li class="{{ Request::is('delivery/*') ? 'active open' : '' }}">
                 <a href="javascript:;">
                     <i class="fa fa-calendar-o"></i>
                     <span class="title">Delivery</span>
@@ -60,7 +63,7 @@
                         <a href="{{route('delivery.index')}}"><i class="fa fa-list"></i>Delivery List</a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

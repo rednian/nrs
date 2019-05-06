@@ -8,7 +8,7 @@ class ServiceUploads extends Model
 {
     protected $table = 'services_uploads';
     protected $primaryKey = 'upload_id';
-    protected $fillable = ['upload_path', 'service_id'];
+    protected $fillable = ['upload_path', 'thumbnail_path','service_id'];
 
     public function service()
     {

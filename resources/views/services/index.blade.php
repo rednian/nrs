@@ -6,9 +6,24 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('/plugins/bootstrap-toggle/toggle-button.min.css')}}"/>
 
 	<link rel="stylesheet" type="text/css" href="{{asset('/plugins/bootstrap-editable/css/bootstrap-editable.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" />
 
 	<link rel="stylesheet" type="text/css" href="{{asset('/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css')}}"/>
 	<link rel="stylesheet" type="text/css" href="{{asset('/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}"/>
+	<link rel="stylesheet" type="text/css" href="{{asset('/css/slider.css')}}"/>
+	<style>
+		.table tr:hover{
+			cursor: pointer;
+		}
+		.modal-dialog{
+		    overflow-y: initial !important
+		}
+		.modal-body{
+		    max-height: 550px;
+		    overflow-y: auto;
+		}
+	</style>
 @endsection
 @section('content')
 	<div class="row" id="service-app">
@@ -52,10 +67,20 @@
 						<section class="row">
 							<div class="col-md-3 col-sm-3 col-xs-12">
 								<div class="form-group">
-									<input autocomplete="off" name="brand" type="text" class="form-control input-sm" placeholder="brand / item">
+									{{-- <input autocomplete="off" name="brand" type="text" class="form-control input-sm" placeholder="brand / item"> --}}
+									<select name="brand" id="item" class="form-control input-sm">
+										<option selected disabled>select item brand</option>
+										<option value="all">All</option>
+										<option value="apple">Apple</option>
+										<option value="acer">Acer</option>
+										<option value="asus">Asus</option>
+										<option value="dell">Dell</option>
+										<option value="hp">HP</option>
+										<option value="Macbook Pro">Macbook Pro</option>
+									</select>
 								</div>
 
-							</div>
+							</div>	
 							<div class="col-md-3 col-sm-3 col-xs-12">
 								<div class="input-group" id="defaultrange">
 									<input autocomplete="off" name="created_at" type="text" class="form-control input-sm">
@@ -69,8 +94,11 @@
 								<div class="form-group">
 									<select name="service_status" id="status" class="form-control input-sm">
 										<option selected disabled>select status</option>
-										<option value="pending">Pending</option>
-										<option value="done">Done</option>
+										<option value="all">All</option>
+										<option value="New">New</option>
+										<option value="In Progress">In Progress</option>
+										<option value="Closed-Returned">Closed-Returned</option>
+										<option value="Closed-Accomplished">Closed-Accomplished</option>
 									</select>
 								</div>
 							</div>
@@ -81,10 +109,11 @@
 							</div>
 						</section>
 					</form>
-					<section class="table-responsive">
-						<table class="table table-condensed flip-content" id="tblServices">
+					<section>
+						<table class="table table-condensed table-hover flip-content" id="tblServices">
 							<thead class="flip-content">
 							<tr>
+								<th></th>
 								<th>Receipt. #</th>
 								<th>Customer Name</th>
 								<th>Mobile No.</th>
@@ -92,42 +121,217 @@
 								<th>Remarks</th>
 								<th>Date</th>
 								<th>Status</th>
-								<th>Actions</th>
+								<th></th>
 							</tr>
 							</thead>
 							<tbody>
 
 							</tbody>
 						</table>
-					</section>
-
-					@include('services.service-detail')
+					</section>	
 				</section>
 			</div>
 		</div>
-		@include('services.show-modal')
-		@endsection
+	</div>
+	
+@include('auth.create-modal')
+@include('services.service-detail')
+@include('services.show-modal')
+@include('services.service-status-modal')
+@include('services.update-status')
+@endsection
 
-		@section('script')
-			<script type="text/javascript" src="{{asset('/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-			<script type="text/javascript" src="{{asset('/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
-{{--			<script type="text/javascript" src="{{asset('/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js')}}"></script>--}}
-{{--			<script type="text/javascript" src="{{asset('/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js')}}"></script>--}}
-{{--			<script type="text/javascript" src="{{asset('/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js')}}"></script>--}}
+@section('script')
+	<script type="text/javascript" src="{{asset('/plugins/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/plugins/bootstrap-editable/js/bootstrap-editable.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/plugins/bootstrap-daterangepicker/moment.min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 
-			<script type="text/javascript" src="{{asset('/plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/select2/select2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" ></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+	
+	<script type="text/javascript" src="{{ asset('/plugins/bootstrap-touchspin/bootstrap.touchspin.js') }}" ></script>
+	<script type="text/javascript" src="{{ asset('/scripts/ecommerce-products-edit.js') }}"></script>
+	<script type="text/javascript" src="{{asset('/scripts/components-pickers.js')}}"></script>
 
-			<script type="text/javascript" src="{{asset('/plugins/bootstrap-editable/js/bootstrap-editable.js')}}"></script>
+	<script src="{{asset('/plugins/bootstrap-toggle/toggle-button.min.js')}}"></script>
+	<script type="text/javascript">
 
-			<script type="text/javascript" src="{{asset('/plugins/bootstrap-daterangepicker/moment.min.js')}}"></script>
-			<script type="text/javascript" src="{{asset('/plugins/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
-			<script type="text/javascript" src="{{asset('/scripts/components-pickers.js')}}"></script>
+		var service_data = {};
+			$(document).ready(function () {
 
-			<script src="{{asset('/plugins/bootstrap-toggle/toggle-button.min.js')}}"></script>
-			<script type="text/javascript">
-				$(document).ready(function () {
+				$('a#modal-delivery.btn').click(function(e){
+					
+
+					var id = this.pathname.split('/');
+
+					service_id = id[3];
+
+					$.ajax({
+						url: '{{ url('service/checkstatus') }}',
+						data: {service_id: id[3]},
+						async: false
+					}).done(function(response){
+						if(response.service_status == 'New' || response.service_status == 'new' || response.service_status == 'In Progress' || response.service_status == 'in progress'){
+							e.preventDefault();
+
+							service_data = response;
+
+							$('#service-status-show').modal('show');
+						}
+					});
+
+						
+				});
+					$('#service-status-show').on('hidden.bs.modal', function () {
+							$('select[name=service_status#service-status]').html('');
+							var html = [];
+					});
+
+				$('#service-status-show').on('shown.bs.modal', function () {
+
+					$('select[name=service_status#service-status]').html('');
+
+					$('input[name=service_id]#service_id').val(service_data.service_id);
+
+						var html = [];
+						var selected = 'selected';
+
+						html.push('<option '+(service_data.service_status == 'New' ? selected : "" )+' value="New">New</option>');
+						html.push('<option  '+(service_data.service_status == 'In Progress' ? selected : "" )+' value="In Progress">In Progress</option>');
+						html.push('<option  '+ (service_data.service_status == 'Closed-Returned' ? selected : "" )+' value="Closed-Returned">Closed-Returned</option>');
+						html.push('<option  '+ (service_data.service_status == 'Closed-Accomplished' ? selected : "" )+' value="Closed-Accomplished">Closed-Accomplished</option>');
+						html.join('');
+
+						$('select[name=service_status]#service-status').append(html);
+
+						$('form#frm-status').submit(function(e){
+							e.preventDefault();
+							$.ajax({
+								url: $(this).attr('action'),
+								type: $(this).attr('method'),
+								data: $(this).serialize(),
+								dataType: 'json'
+							}).done(function(response){
+
+								if(response.success){
+									$('#service-status-show').modal('hide');
+									$('#show-service').modal('hide');
+									if (response.data.service_status == 'Closed-Accomplished' || response.data.service_status == 'Closed-Returned') {
+										window.open('{{ url('service/print') }}/'+response.data.service_id+'?type=delivery', '_blank');
+									}
+								
+								$('#tblServices').DataTable().ajax.reload();
+
+									// new PNotify({
+									// 	type: 'success',
+									// 	text: response.message,
+									// 	history: false,
+									// 	after_close: function(notice, timer_hide) {
+											 	
+									// 	}
+									// });
+							
+								}
+							});
+						});
+
+				});
+
+
+	$('#tblServices tbody').on( 'click', 'tr', function () {
+
+		if ( $(this).hasClass('selected') ) {
+		   $(this).removeClass('selected');
+		}
+		else {
+		   tblServices.$('tr.selected').removeClass('selected');
+		   $(this).addClass('selected');
+		}
+
+	});
+
+				
+
+	jQuery('#tblServices').on('click','tbody tr', function (evt) {
+	    var cell=$(evt.target).closest('td');
+
+	    if( cell.index() <= 6 && cell.index() != 0){
+
+	    	var data = $('#tblServices').DataTable().row('.selected').data();
+	    	view(data.service_id);
+	   }
+	});
+
+
+				$('#show-service').on('shown.bs.modal', function () {
+
+					$('#frm-upload-note').submit(function(e){
+						e.preventDefault();
+						$.ajax({
+							url: $(this).attr('action'),
+							type: $(this).attr('method'),
+							data: new FormData(this),
+							processData: false,
+							cache: false,
+					        contentType: false,
+						}).done(function(response){
+							$('input').val('');
+							new PNotify({
+								type: 'success',
+								text: 'File(s) Successfully uploaded'
+							});
+							location.reload();
+						});
+					});
+
+					$('#fileupload').submit(function(e){
+						e.preventDefault();
+						$.ajax({
+							url: $(this).attr('action'),
+							type: $(this).attr('method'),
+							data: new FormData(this),
+							processData: false,
+							cache: false,
+					        contentType: false,
+						}).done(function(response){
+							$('input').val('');
+							new PNotify({
+								type: 'success',
+								text: 'File(s) Successfully uploaded'
+							});
+							location.reload();
+						});
+					});
+
+
+					$(".various").fancybox({
+							maxWidth	: 800,
+							maxHeight	: 600,
+							fitToView	: false,
+							width		: '70%',
+							height		: '70%',
+							autoSize	: false,
+							closeClick	: false,
+							openEffect	: 'none',
+							closeEffect	: 'none'
+						});
+
+
+				});
+
 
 					dateRange();
+
 					var tblServices = $('#tblServices').DataTable({
 						destroy: true,
 						dom: "<'row'<'col-xs-12'<'col-xs-6'l><'col-xs-6'p>>r>" +
@@ -135,22 +339,25 @@
 						"<'row'<'col-xs-12'<'col-xs-6'i><'col-xs-6'p>>>",
 						processing: true,
 						serverSide: true,
+						stateSave:  true,
+						order: [0, 'desc'],
 						ajax: {
 							url: '{{ route('service.dataTable')}}',
 							data: function (d) {
+
 								d.customer_name = $('input[name=customer_name]').val();
 								d.customer_email = $('input[name=customer_email]').val();
 								d.customer_mobile = $('input[name=customer_mobile]').val();
 
 								d.service_status = $('select#status').val();
 								d.created_at = $('input[name=created_at]').val();
-								d.brand = $('input[name=brand]').val();
+								d.brand = $('select[name=brand]').val();
 							}
 						},
 
 						language: {
 							infoFiltered: '',
-							processing: '<span class="fa fa-spinner fa-spin fa-3x text-info"></span>'
+							processing: '<img src="{{ asset('img/ajax-loader.gif') }}">'
 						},
 						columnDefs: [
 							{
@@ -160,6 +367,16 @@
 							}
 						],
 						columns: [
+							{
+								render: function (data, type, full, meta) {
+
+									var id = full.service_id;
+									var url = '{{url('service')}}/'+id+'/qrcode';
+
+									return '<a onclick="destroy(this)" data-serviceid ="'+full.service_id+'"  class="btn btn-outline btn-xs prevent text-danger btn-default"> Delete</a>';
+
+								}
+							},
 							{data: 'receipt_no', name: 'receipt_no'},
 							{data: 'customer_name', name: 'customer_name'},
 							{data: 'customer_mobile', name: 'customer_mobile'},
@@ -168,30 +385,31 @@
 							{data: 'created_at', name: 'created_at'},
 							{
 								render: function (data, type, full, meta) {
-									return '<a href="javascript:;" data-value="' + full.service_status + '" id="service-status" data-pk="' + full.service_id + '" data-placeholder="Required"  class="editable editable-click">' + full.service_status + '</a>';
+									return '<a  class="btn btn-link btn-sm " onclick="updateStatus(this)" data-status="'+full.service_status+'" data-serviceid ="'+full.service_id+'" data-toggle="modal" href="#service-status-modal">'+full.service_status+'</a>';
 								}
 							},
 							{
 								render: function (data, type, full, meta) {
 
 									var id = full.service_id;
-									var url = '{{url('service')}}/'+id+'/qrcode';
-
-									return '<a onclick="view(this)" data-serviceid ="'+full.service_id+'" class="btn btn-xs btn-default"><span class="fa fa-folder-open text-primary"></span></a>' +
-													'<a onclick="printService(this)" data-serviceid ="'+full.service_id+'" class="btn btn-xs btn-default"><span class="fa fa-print text-default"></span></a>' +
-													// '<a href="'+url+'" class="btn btn-xs btn-default"><span class="fa fa-qrcode text-default"></span></a>' +
-													'<a onclick="destroy(this)" data-serviceid ="'+full.service_id+'"  class="btn btn-outline btn-xs btn-default"><span class="fa fa-trash text-danger"></span></a>';
+									var url = '{{url('service/print')}}/'+id;
+									return '<a href="'+url+'" title="print service athorization form" target="_blank" data-serviceid ="'+full.service_id+'" class="btn btn-xs btn-default prevent">print S.A. form</a>';
 
 								}
 							}
 						],
 						fnCreatedRow: function (row, data, index) {
 
+							// $('td', row).click(function(){
+							// 	view(data.service_id);
+							// });
 						},
 						initComplete: function (settings, json) {
-							updateStatus();
+							$('a.prevent').click(function(e){e.stopPropagation();});
 						}
 					});
+
+			
 
 					$('#form-filter').submit(function (e) {
 						$('#tblServices').DataTable().ajax.reload();
@@ -202,24 +420,21 @@
 
 				});
 
-				function printService(el) {
-					var service_id = $(el).data('serviceid');
-					$.ajax({
-						url: '{{url('service/print')}}/'+service_id,
-						// data: {service_id: service_id}
-					}).done(function (response) {
-
-						window.open('{{url('service/print')}}/'+service_id);
-					});
-				}
 
 				function view(el) {
 
-					var service_id = $(el).data('serviceid');
+					var service_id = el;
+					// var service_id = $(el).data('serviceid');
 
 					$('#pre-inspection').html('');
 					$('#modal-accessories-received').html('');
 					$('#services-images-container').html('');
+					$('#slider-container').html('');
+					$('#images-container').html('');
+					 $('ul#data-recovery').html('');
+					 $('#file-container').html('');
+					 $('#notes-container').html('');
+
 
 					$.ajax({
 						url: '{{url('service')}}'+'/'+service_id,
@@ -227,148 +442,267 @@
 						dataType: 'json',
 					}).done(function (response) {
 
+
 						$('#show-service').modal('show');
 
-						$.each(response, function (index, service) {
+						//service details
+						$('#service-modal-brand').html(response.brand);
+						$('#qrcode-container').html(response.qr_code);
+						$('#ref').html(response.receipt_no);
+						$('#modal-service-serial').html(response.serial);
+						$('#service-model').html(response.model);
+						$('#problem').html(response.problem_reported);
+						$('#remarks-show').html(response.remarks);
+						$('.service_id').val(response.service_id);
+						$('#reason').html(response.service_status_reason);
+
+						var print_url = '{{ url('service/print') }}/'+response.service_id;
+						$('a#modal-print').attr('href',print_url+'?type=print');
+						$('a#modal-delivery').attr('href',print_url+'?type=delivery');
+						$('a#modal-detail').attr('href','{{url('service/detail')}}/'+response.service_id);
+
+						// var status = (response.service_status === 'done') ? 'label-success' : 'label-warning';
+						var status = null;
+						switch(response.service_status) {
+						  case 'New':
+						  		status = 'label-default';
+						    break;
+						  case 'In Progress':
+						    	status = 'label-info';
+						    break;
+						  case 'Closed-Returned':
+						    status = 'label-warning';
+						    break;
+						  case 'Closed-Accomplished':
+						    status = 'label-success';
+						    break;
+						} 
+
+						
+						$('#status-service').html('<span class="label '+status+'">'+response.service_status+'</span>');
+
+						var date = new Date(response.created_at);
+						var day = date.getDate();
+						var month = date.getMonth();
+						var year = date.getFullYear();
+						var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+						$('#date').html(day+'-'+months[month]+'-'+year);
 
 
-							$('#qrcode-container').html(service.qr);
-							$('#c-name').html(service.customer_name);
-							$('#phone').html(service.customer_phone);
-							$('#mobile').html(service.customer_mobile);
-							$('#c-address').html(service.customer_address);
-							$('#c-email').html(service.customer_email);
+						var preliminary = response.laptop_broken_lcd == 1 ?  '<li>Broken LCD</li>' : '';
+						   preliminary += response.laptop_display_flickering == 1 ?  '<li>Display Flickering</li>' : '';
+						   preliminary += response.laptop_casing_broken == 1 ?  '<li>Casing Broken</li>' : '';
+						   preliminary += response.laptop_loose_hinges == 1 ?  '<li>Loose Hinges</li>' : '';
+						   preliminary += response.laptop_missing_keys == 1 ?  '<li>Missing Keys</li>' : '';
+						   preliminary += response.laptop_broken_sockets == 1 ?  '<li>Broken sockets</li>' : '';
+						   preliminary += response.laptop_hdd_defective == 1 ?  '<li>HDD Defective</li>' : '';
+						   preliminary += response.laptop_optical_drive_damage == 1 ?  '<li>Optical drive damage</li>' : '';
+						   preliminary += response.lcd_scratches == 1 ?  '<li>LCD scratches</li>' : '';
+						   preliminary += response.lcd_display_flickering == 1 ?  '<li>Display flickering</li>' : '';
+						   preliminary += response.lcd_casing_broken == 1 ?  '<li>Casing broken</li>' : '';
+						   preliminary += response.lcd_casing_broken == 1 ?  '<li>Casing broken</li>' : '';
+						   preliminary += response.recovery_hdd == 1 ?  '<li>Recovery HDD</li>' : '';
 
-							$('#ref').html(service.receipt_no);
-							$('#service-brand').html(service.brand);
-							$('#modal-service-serial').html(service.serial);
-							$('#service-model').html(service.model);
-							$('#problem').html(service.problem_reported);
-							$('#remarks-show').html(service.remarks);
+						   $('#pre-inspection').append(preliminary);
+						   
+						  var recovery = response.recovery_laptop == 1 ?  '<li>Recovery Laptop</li>' : '';
+							   recovery += response.recovery_scsi == 1 ?  '<li>Recovery SCSI</li>' : '';
+							   recovery += response.recovery_sata == 1 ?  '<li>Recovery SATA</li>' : '';
+							   recovery += response.recovery_sas == 1 ?  '<li>Recovery SAS</li>' : '';
+							   recovery += response.recovery_nas == 1 ?  '<li>Recovery NAS</li>' : '';
+							   recovery += response.recovery_ssd == 1 ?  '<li>Recovery SSD</li>' : '';
+							   recovery += response.recovery_flash == 1 ?  '<li>Recovery flash drive</li>' : '';
+							   recovery += response.recovery_mobile == 1 ?  '<li>Recovery mobile</li>' : '';
+							   recovery += response.recovery_tablet == 1 ?  '<li>Recovery tablet</li>' : '';
+							   recovery += response.internal_18 == 1 ?  '<li> Internal/External HDD 1.8</li>' : '';
+							   recovery += response.internal_25 == 1 ?  '<li> Internal/External HDD 2.5</li>' : '';
+							   recovery += response.internal_35 == 1 ?  '<li> Internal/External HDD 3.5</li>' : '';
 
+							   $('ul#data-recovery').append(recovery);
 
-							var status = (service.service_status === 'done') ? 'label-success' : 'label-default';
-							$('#status-service').html('<span class="label '+status+'">'+service.service_status+'</span>');
+						   var acc_received = response.accessories_power_cord == 1 ? '<li>Power cord</li>': '';
+					   		 acc_received += response.accessories_battery == 1 ? '<li>Battery</li>': '';
+					   		 acc_received += response.accessories_pcmcia == 1 ? '<li>PCMCIA</li>': '';
+					   		 acc_received += response.accessories_optical_drive == 1 ? '<li>Optical Drive</li>': '';
+					   		 acc_received += response.accessories_toner_cartridge == 1 ? '<li>Toner cartridge</li>': '';
+					   		 acc_received += response.accessories_ink_cartridge == 1 ? '<li>Ink cartridge</li>': '';
+					   		 acc_received += response.accessories_data_cable == 1 ? '<li>Data cable</li>': '';
 
-
-
-							var preliminary = service.laptop_broken_lcd == 1 ?  '<li>Broken LCD</li>' : '';
-							   preliminary += service.laptop_display_flickering == 1 ?  '<li>Display Flickering</li>' : '';
-							   preliminary += service.laptop_casing_broken == 1 ?  '<li>Casing Broken</li>' : '';
-							   preliminary += service.laptop_loose_hinges == 1 ?  '<li>Loose Hinges</li>' : '';
-							   preliminary += service.laptop_missing_keys == 1 ?  '<li>Missing Keys</li>' : '';
-							   preliminary += service.laptop_broken_sockets == 1 ?  '<li>Broken sockets</li>' : '';
-							   preliminary += service.laptop_hdd_deffective == 1 ?  '<li>HDD Deffective</li>' : '';
-							   preliminary += service.laptop_optical_drive_damage == 1 ?  '<li>Optical drive damage</li>' : '';
-							   preliminary += service.lcd_scratches == 1 ?  '<li>LCD scratches</li>' : '';
-							   preliminary += service.lcd_display_flickering == 1 ?  '<li>Display flickering</li>' : '';
-							   preliminary += service.lcd_casing_broken == 1 ?  '<li>Casing broken</li>' : '';
-							   preliminary += service.lcd_casing_broken == 1 ?  '<li>Casing broken</li>' : '';
-							   preliminary += service.recovery_hdd == 1 ?  '<li>Recovery HDD</li>' : '';
-							   preliminary += service.recovery_laptop == 1 ?  '<li>Recovery Laptop</li>' : '';
-							   preliminary += service.recovery_scsi == 1 ?  '<li>Recovery SCSI</li>' : '';
-							   preliminary += service.recovery_sata == 1 ?  '<li>Recovery SATA</li>' : '';
-							   preliminary += service.recovery_sas == 1 ?  '<li>Recovery SAS</li>' : '';
-							   preliminary += service.recovery_nas == 1 ?  '<li>Recovery NAS</li>' : '';
-							   preliminary += service.recovery_ssd == 1 ?  '<li>Recovery SSD</li>' : '';
-							   preliminary += service.recovery_flash == 1 ?  '<li>Recovery flash drive</li>' : '';
-							   preliminary += service.recovery_mobile == 1 ?  '<li>Recovery mobile</li>' : '';
-							   preliminary += service.recovery_tablet == 1 ?  '<li>Recovery tablet</li>' : '';
-
-							   $('#pre-inspection').append(preliminary);
-
-							   var acc_received = service.accessories_power_cord == 1 ? '<li>Power cord</li>': '';
-							   		 acc_received += service.accessories_battery == 1 ? '<li>Battery</li>': '';
-							   		 acc_received += service.accessories_pcmcia == 1 ? '<li>PCMCIA</li>': '';
-							   		 acc_received += service.accessories_optical_drive == 1 ? '<li>Optical Drive</li>': '';
-							   		 acc_received += service.accessories_toner_cartridge == 1 ? '<li>Toner cartridge</li>': '';
-							   		 acc_received += service.accessories_ink_cartridge == 1 ? '<li>Ink cartridge</li>': '';
-							   		 acc_received += service.accessories_data_cable == 1 ? '<li>Data cable</li>': '';
-
-							   		 $('#modal-accessories-received').append(acc_received);
+					   		 $('#modal-accessories-received').append(acc_received);
 
 
+						//customer details
+						$('#c-name').html(response.customer.customer_name);
+						$('#phone').html(response.customer.customer_phone);
+						$('#mobile').html(response.customer.customer_mobile);
+						$('#c-address').html(response.customer.customer_address);
+						$('#c-email').html(response.customer.customer_email);
 
-							if(!$.isEmptyObject(service.images)){
-								console.log(service.images);
-								$.each(service.images, function (index, image) {
-									var src = '{{asset('')}}'+image.upload_path;
+						$('#c-email').attr('href','mailto:'+response.customer.customer_email);
+						
 
-									var html  = '<div class="col-sm-2">';
-										  html += '<img src="'+src+'" class="img img-thumbnail img-responsive"/>';
-										  html += '</div>';
+						if(!$.isEmptyObject(response.files)){
+							var icons = window.FileIcons; 
+							$.each(response.files, function(index, file){
 
-										 $('#services-images-container').append(html);
+								var path = '{{asset('')}}'+file.file_path;
+
+								var class_name = icons.getClassWithColor(file.filename);
+
+
+								if(file.upload_type == 'file'){
+
+									var html = [];
+										html.push('<li><a href="'+path+'" data-fancybox fancybox-type="iframe" class="fancybox various" ><span class="'+class_name+'"></span> '+file.filename+'<a/></li>');
+										html.join('');
+
+										$('#file-container').append(html);
+								}
+
+								if(file.upload_type == 'note'){
+
+									var html = [];
+										html.push('<li><a href="'+path+'" title="'+file.filename+'" data-fancybox fancybox-type="iframe" class="fancybox various" ><span class="'+class_name+'"></span> '+file.filename+'<a/></li>');
+										html.join('');
+
+										$('#notes-container').append(html);
+								}
+							
+							});
+						}
+
+						//display images
+						if(!$.isEmptyObject(response.images)){
+							var counter = 1;
+							$.each(response.images, function (index, image) {
+
+								var thumbnail_path = '{{asset('')}}'+image.thumbnail_path;
+								var original_path = '{{asset('')}}'+image.upload_path;
+
+
+								var style = counter == 1 ? ' ': 'display:none';
+
+								 var html  = '<a href="'+original_path+'" data-type="image" data-type="ajax" data-fancybox>';
+									 html += '<img  src="'+thumbnail_path+'" class="mySlides img img-responsive img-thumbnail center-block" style="max-height: 260px;'+style+'">';
+									 html += '</a>';
+
+									$('#images-container').append(html);
+
+									//slider
+									var slider 	= '<div class="col-sm-3" style="margin-bottom: 2%;">';
+										slider += '<img style="max-height: 80px;" class=" img img-responsive w3-opacity w3-hover-opacity-off" src="'+thumbnail_path+'" style="width:100%;cursor:pointer" onclick="currentDiv('+counter+')">';
+										slider += '</div>';
+									$('#slider-container').append(slider);
+
+								counter++;
 								});
 							}
 							else{
-								{{--var html  = '<div class="col-sm-3">';--}}
-								{{--html		  += '<img src="{{asset('img/default.png')}}" class="img img-thumbnail img-responsive"/>';--}}
-								{{--html 			+= '</div>';--}}
-								{{--$('#services-images-container').html(html);--}}
+								
+								var html = '<img src="{{asset('img/default.png')}}" class=" img img-thumbnail img-responsive center-block" style="height: 250px;" />';
+						
+
+								$('#images-container').html(html);
 							}
 
-							// console.log(service.created_at.date);
-
-							// var date = new Date(service.created_at.date);
-							// var day = date.getDate();
-							// var month = date.getMonth();
-							// var year = date.getFullYear();
-							// var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-							// $('#date').html(day+'-'+months[month]+'-'+year);
-
-						});
 					});
 				}
 
-				function updateStatus() {
-					$('.editable').editable({
-						type: 'select',
-						autotext: 'auto',
-						name: 'service_status',
-						title: 'Update service status',
-						url: '{{route('service.status')}}',
-						source: [
-							{value: 'done', text: 'done'},
-							{value: 'pending', text: 'pending'},
-							{value: 'returned', text: 'returned'},
-						]
-					});
+				function updateStatus(el) {
+
+		
+
+					$('#service-status-modal').on('shown.bs.modal', function () {
+					
+
+						$('select#service-status').html('');
+						var service_id = $(el).data('serviceid');
+						var service_status = $(el).data('status');
+						var html = [];
+						var selected = 'selected';
+
+						$('input#service_id').val(service_id);
+
+
+						html.push('<option '+(service_status == 'New' ? selected : "" )+' value="New">New</option>');
+						html.push('<option  '+(service_status == 'In Progress' ? selected : "" )+' value="In Progress">In Progress</option>');
+						html.push('<option  '+ (service_status == 'Closed-Returned' ? selected : "" )+' value="Closed-Returned">Closed-Returned</option>');
+						html.push('<option  '+ (service_status == 'Closed-Accomplished' ? selected : "" )+' value="Closed-Accomplished">Closed-Accomplished</option>');
+						html.join('');
+							
+
+						var data = ['pending', 'done', 'returned'];
+
+						
+
+						$('select#service-status').append(html);
+
+						$('form#frm-status').submit(function(e){
+							e.preventDefault();
+							$.ajax({
+								url: $(this).attr('action'),
+								type: $(this).attr('method'),
+								data: $(this).serialize(),
+								dataType: 'json'
+							}).done(function(response){
+
+								if(response.success){
+									$('#service-status-modal').modal('hide');
+								
+								$('#tblServices').DataTable().ajax.reload();
+
+									// new PNotify({
+									// 	type: 'success',
+									// 	text: response.message,
+									// 	history: false,
+									// 	after_close: function(notice, timer_hide) {
+											 	
+									// 	}
+									// });
+							
+								}
+							});
+						});
+						});
+
 				}
 
 
 				function destroy(el) {
 					var service_id = $(el).data('serviceid');
-					(new PNotify({
-						title: 'Confirmation Needed',
-						text: 'Are you sure you want to delete the service?',
-						icon: 'glyphicon glyphicon-question-sign',
-						hide: false,
-						confirm: {
-							confirm: true
-						},
+
+
+					bootbox.confirm({
+						message: 'Are you sure you want to delete this service?',
 						buttons: {
-							closer: false,
-							sticker: false
+							cancel: {
+								label: '<i class="fa fa-ban"></i> No',
+								className: 'btn btn-sm btn-default'
+							},
+							confirm:{
+								label: '<i class="fa fa-trash"></i> Yes',
+								className: 'btn btn-danger btn-sm'
+							}
 						},
-						history: {
-							history: false
+						callback: function(result){
+						   if(result){
+							  $.ajax({
+							  	url: '{{url('service')}}/'+ service_id,
+							  	data: {'_method':'DELETE' , service_id: service_id},
+							  	type: 'post'
+							  }).done(function (response) {
+							  	new PNotify({
+							  		type: 'success',
+							  		text: 'Service Successfully deleted.'
+							  	});
+							  	$('#tblServices').DataTable().ajax.reload();
+							  });
+						   }
 						}
-					})).get().on('pnotify.confirm', function() {
 
-						$.ajax({
-							url: '{{url('service')}}/'+ service_id,
-							data: {'_method':'DELETE' , service_id: service_id},
-							type: 'post'
-						}).done(function (response) {
-							new PNotify({
-								type: 'success',
-								text: 'Service Successfully deleted.'
-							});
-							$('#tblServices').DataTable().ajax.reload();
-						});
+					});
 
-					}).on('pnotify.cancel', function() {});
+				
 
 				}
 
@@ -395,6 +729,26 @@
 					$('input[name="created_at"]').on('cancel.daterangepicker', function (ev, picker) {
 						$(this).val('');
 					});
+				}
+
+				function currentDiv(n) {
+				  showDivs(slideIndex = n);
+				}
+
+				function showDivs(n) {
+				  var i;
+				  var x = document.getElementsByClassName("mySlides");
+				  var dots = document.getElementsByClassName("demo");
+				  if (n > x.length) {slideIndex = 1}
+				  if (n < 1) {slideIndex = x.length}
+				  for (i = 0; i < x.length; i++) {
+				    x[i].style.display = "none";
+				  }
+				  for (i = 0; i < dots.length; i++) {
+				    dots[i].className = dots[i].className.replace(" w3-opacity-off", "");
+				  }
+				  x[slideIndex-1].style.display = "block";
+				  // dots[slideIndex-1].className += " w3-opacity-off";
 				}
 			</script>
 @endsection

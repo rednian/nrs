@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+       
 
         /*
          * Package Service Providers...
@@ -175,8 +176,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-	      Barryvdh\DomPDF\ServiceProvider::class,
-	      SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+	    Barryvdh\DomPDF\ServiceProvider::class,
+	    SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -227,7 +229,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-	      'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
+	    'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'Image' => Intervention\Image\Facades\Image::class
 
     ],
 ];

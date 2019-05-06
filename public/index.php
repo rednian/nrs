@@ -21,7 +21,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__.'/.././nrs/nrs/vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +30,12 @@ require __DIR__.'/../vendor/autoload.php';
 |
 | We need to illuminate PHP development, so let us turn on the lights.
 | This bootstraps the framework and gets it ready for use, then it
-| will load up this application so that we can run it and send
+| will load up this application so that we can run it and sends
 | the responses back to the browser and delight our users.
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__.'/.././nrs/nrs/bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +48,11 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 | and wonderful application we have prepared for them.
 |
 */
+
+$app->bind('path.public', function() {
+    return __DIR__;
+});
+
 
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 

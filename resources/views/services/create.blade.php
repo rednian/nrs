@@ -3,7 +3,7 @@
 	<link rel="stylesheet" type="text/css" href="{{asset('/plugins/select2/select2.css')}}"/>
 @endsection
 @section('content')
-	<div class="row">
+	<div class="row overlay">
 		<div class="col-md-12 col-sm-12 col-xs-12">
 
 			<div class="portlet light">
@@ -23,15 +23,22 @@
 						<section class="row">
 							<div class="col-md-5 col-sm-5 col-xs-12">
 								<section class="form-body">
+									<div class="form-group">
+										<div class="col-sm-12 col-xs-12">
+											{{-- <select name="search" id="search" class="form-control"></select> --}}
+											{{-- <select name="search" id="search" class="form-control"></select> --}}
+											{{-- <input type="hidden"  id="search" name="search"  class="form-control"> --}}
+										</div>
+									</div>
 									<h4 class="form-section">Customer Information</h4>
 									<div class="form-group">
-										<label class="control-label col-md-3">Name</label>
+										<label class="control-label col-md-3">Name  <span class="required">*</span></label>
 										<div class="col-md-9">
-											<input autocomplete="off" name="customer_name" type="text" class="form-control input-sm select2 " id="customer-name">
+											<input autocomplete="off" name="customer_name" type="text" class="form-control input-sm" id="customer-name">
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-md-3">Mobile</label>
+										<label class="control-label col-md-3">Mobile <span class="required">*</span></label>
 										<div class="col-md-9">
 											<input autocomplete="off" name="customer_mobile" type="text" class="form-control input-sm" id="mobile">
 										</div>
@@ -92,7 +99,14 @@
 									<div class="form-group">
 										<label class="control-label col-md-3">Item/Brand</label>
 										<div class="col-md-9">
-											<input autocomplete="off" name="brand" type="text" class="form-control input-sm" id="item">
+											<select name="brand" id="item" class="form-control input-sm">
+												<option value="apple">Apple</option>
+												<option value="acer">Acer</option>
+												<option value="asus">Asus</option>
+												<option value="dell">Dell</option>
+												<option value="hp">HP</option>
+												<option value="Macbook Pro">Macbook Pro</option>
+											</select>
 										</div>
 									</div>
 									<div class="form-group">
@@ -102,382 +116,384 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="control-label col-md-3">S/N</label>
+										<label class="control-label col-md-3">S/N  <span class="required">*</span></label>
 										<div class="col-md-9">
 											<input autocomplete="off" name="serial" type="text" class="form-control input-sm" id="serial">
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="control-label col-md-3">Service Type</label>
-										<div class="col-md-9">
-											<select name="service_type" class="form-control input-sm">
-												<option selected disabled>Select Service Type</option>
-												<option value="laptop"> Laptop</option>
-												<option value="monitor"> LCD Monitor/SMPS</option>
-												<option value="recovery">Data Recovery</option>
-											</select>
-										</div>
-									</div>
-									<section class="row">
-										<div class="col-md-3 col-sm-3 col-xs-12"></div>
-										<div class="col-md-9 col-sm-9 col-xs-12">
-
-											<section class="row" id="laptop-container">
-												<div class="col-md-6 col-sm-6 col-xs-12">
-
-													<div class="md-checkbox-list" >
-														<div class="md-checkbox">
-															<input name="laptop_broken_lcd" type="checkbox" value="1" id="broken-lcd" class="md-check">
-															<label for="broken-lcd">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Broken LCD
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="laptop_display_flickering" id="dim-display-flickering" type="checkbox" value="1" class="md-check">
-															<label for="dim-display-flickering">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Dim display Flickering
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="laptop_casing_broken" type="checkbox" id="casing-broken" value="1" class="md-check">
-															<label for="casing-broken">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Casing broken
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input id="defective-loose-hinges" name="laptop_loose_hinges" type="checkbox" value="1" class="md-check">
-															<label for="defective-loose-hinges">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Defective/loose hinges
-															</label>
-														</div>
-
-													</div>
-
-												</div>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<div class="md-checkbox-list">
-
-
-														<div class="md-checkbox">
-															<input name="laptop_missing_keys" type="checkbox" value="1" id="missing-keys-caps" class="md-check">
-															<label for="missing-keys-caps">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Missing keys/caps etc.
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="laptop_broken_sockets" type="checkbox" value="1" id="broken-ports-sockets" class="md-check">
-															<label for="broken-ports-sockets">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Broken ports/sockets
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="laptop_hdd_defective" type="checkbox" value="1" id="making-noise-defective" class="md-check">
-															<label for="making-noise-defective">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																HDD making noise/Defective
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="laptop_optical_drive_damage" type="checkbox" value="1" id="optical-drive-physical-damage"
-																		 class="md-check">
-															<label for="optical-drive-physical-damage">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Optical Drive physical damage
-															</label>
-														</div>
-													</div>
-												</div>
-											</section>
-											<section class="row" id="monitor-container">
-												<div class="col-md-12 col-sm-12 col-xs-12">
-													<div class="md-checkbox-list">
-
-														<div class="md-checkbox">
-															<input name="lcd_scratches" type="checkbox" value="1" id="lcd_scratches" class="md-check">
-															<label for="lcd_scratches">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Scratches/Marks/Lines in LCD
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="lcd_display_flickering" type="checkbox" value="1" id="lcd_display_flickering" class="md-check">
-															<label for="lcd_display_flickering">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Dim Display / Flickering
-															</label>
-														</div>
-
-														<div class="md-checkbox">
-															<input name="lcd_casing_broken" type="checkbox" value="1" id="lcd_casing_broken" class="md-check">
-															<label for="lcd_casing_broken">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Casing broken
-															</label>
-														</div>
-
-													</div>
-												</div>
-											</section>
-											<section class="row" id="recovery-container">
-												<div class="col-md-12 col-sm-12 col-xs-12">
-
-
-													<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
-													<label>Internal/External HDD</label><br>
-														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox1" value="1" class="md-check">
-															<label for="checkbox1">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																2.5
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox2" value="1" class="md-check">
-															<label for="checkbox2">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																3.5 </label>
-														</div>
-														<div class="md-checkbox">
-															<input type="checkbox" id="checkbox3" value="1" class="md-check">
-															<label for="checkbox3">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																1.8 </label>
-														</div>
-														<div class="md-checkbox">
-															<input type="checkbox" name="recovery_laptop" value="1" id="recovery_laptop" class="md-check">
-															<label for="recovery_laptop">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Laptop </label>
-														</div>
-													</div>
-
+									<div role="tabpanel" style="margin-top: 5%;">
+										<!-- Nav tabs -->
+										<ul class="nav nav-tabs" role="tablist" style="margin-bottom: 5%">
+											<li role="presentation" class="active">
+												<a href="#home" aria-controls="home" role="tab" data-toggle="tab"> <span class="fa fa-tasks "></span> Preliminary Inspection </a>
+											</li>
+											<li role="presentation">
+												<a href="#tab" aria-controls="tab" role="tab" data-toggle="tab"><span class="fa fa-database"></span>  Data Recovery</a>
+											</li>
+											<li role="tabrecovery">
+												<a href="#tab-accessories" aria-controls="tab" role="tab" data-toggle="tab"><span class="fa fa-file"></span> Accessories Received</a>
+											</li>
+										</ul>
+									
+										<!-- Tab panes -->
+										<div class="tab-content">
+											<div role="tabpanel" class="tab-pane active" id="home">
 												
-													<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
-														<label>Server</label><br>
-														<div class="md-checkbox">
-															<input name="recovery_scsi" type="checkbox" id="checkbox4" value="1" class="md-check">
-															<label for="checkbox4">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																SCSI
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="recovery_sata" type="checkbox" id="checkbox5 " value="1" class="md-check">
-															<label for="checkbox5">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																SATA </label>
-														</div>
-														<div class="md-checkbox">
-															<input name="recovery_sas" type="checkbox" id="checkbox6" value="1" class="md-check">
-															<label for="checkbox6">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																SAS </label>
-														</div>
-														<div class="md-checkbox">
-															<input name="recovery_nas" type="checkbox" id="checkbox7" value="1" class="md-check">
-															<label for="checkbox7">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																NAS </label>
-														</div>
-													</div>
-
-													<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
-													<label>Memory Card</label><br>
-														<div class="md-checkbox">
-															<input name="recovery_ssd" type="checkbox" value="1" id="checkbox8" class="md-check">
-															<label for="checkbox8">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																SSD
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="recovery_flash" value="1" type="checkbox" id="checkbox9" class="md-check">
-															<label for="checkbox9">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Flashdrive
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="recovery_mobile" value="1" type="checkbox" id="checkbox10" class="md-check">
-															<label for="checkbox10">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Mobile Phone
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="recovery_tablet" value="1" type="checkbox" id="checkbox11" class="md-check">
-															<label for="checkbox11">
-																<span></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Tablet PC
-															</label>
-														</div>
-
-													</div>
-
-												</div>
-											</section>
-										</div>
-									</section>
-									<hr>
-									<div class="form-group">
-										<label class="control-label col-md-3">Accessories Received</label>
-										<div class="col-md-9">
-											<section class="row">
-												<div class="col-md-6 col-sm-6 colxs-12">
-													<div class="md-checkbox-list">
-														<div class="md-checkbox">
-															<input name="accessories_power_cord" type="checkbox"
-																		 value="1" id="accessories_power_cord"
-																		 class="md-check">
-															<label for="accessories_power_cord">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Power adapter /Cord
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="accessories_battery" type="checkbox" value="1"
-																		 id="accessories_battery" class="md-check">
-															<label for="accessories_battery">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Battery
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="accessories_pcmcia" type="checkbox" value="1"
-																		 id="accessories_pcmcia" class="md-check">
-															<label for="accessories_pcmcia">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																PCMCIA card / Carry case
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="accessories_optical_drive" type="checkbox"
-																		 value="1" id="accessories_optical_drive"
-																		 class="md-check">
-															<label for="accessories_optical_drive">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Optical drive
-															</label>
-														</div>
+												<div class="form-group">
+													<label class="control-label col-md-3">Service Type</label>
+													<div class="col-md-9">
+														<select name="service_type" class="form-control input-sm">
+															<option value="laptop"> Laptop</option>
+															<option value="monitor"> LCD Monitor/SMPS</option>
+														</select>
 													</div>
 												</div>
-												<div class="col-md-6 col-sm-6 colxs-12">
-													<div class="md-checkbox-list">
-														<div class="md-checkbox">
-															<input name="accessories_toner_cartridge" type="checkbox"
-																		 value="1" id="accessories_toner_cartridge"
-																		 class="md-check">
-															<label for="accessories_toner_cartridge">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Toner cartridge
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="accessories_ink_cartridge" type="checkbox"
-																		 value="1" id="accessories_ink_cartridge"
-																		 class="md-check">
-															<label for="accessories_ink_cartridge">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Ink cartridge
-															</label>
-														</div>
-														<div class="md-checkbox">
-															<input name="accessories_data_cable" type="checkbox"
-																		 value="1" id="accessories_data_cable"
-																		 class="md-check">
-															<label for="accessories_data_cable">
-																<span class="inc"></span>
-																<span class="check"></span>
-																<span class="box"></span>
-																Data / Signal cable
-															</label>
+												<div class="form-group">
+													<label for="laptop-container" class="control-label col-md-3"></label>
+													<div class="col-md-9">
+														<section class="row" id="laptop-container">
+															<div class="col-md-6 col-sm-6 col-xs-12">
+
+																<div class="md-checkbox-list" >
+																	<div class="md-checkbox">
+																		<input name="laptop_broken_lcd" type="checkbox" value="1" id="broken-lcd" class="md-check">
+																		<label for="broken-lcd">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Broken LCD
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="laptop_display_flickering" id="dim-display-flickering" type="checkbox" value="1" class="md-check">
+																		<label for="dim-display-flickering">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Dim display Flickering
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="laptop_casing_broken" type="checkbox" id="casing-broken" value="1" class="md-check">
+																		<label for="casing-broken">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Casing broken
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input id="defective-loose-hinges" name="laptop_loose_hinges" type="checkbox" value="1" class="md-check">
+																		<label for="defective-loose-hinges">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Defective/loose hinges
+																		</label>
+																	</div>
+																</div>
+
+															</div>
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																<div class="md-checkbox-list">
+
+
+																	<div class="md-checkbox">
+																		<input name="laptop_missing_keys" type="checkbox" value="1" id="missing-keys-caps" class="md-check">
+																		<label for="missing-keys-caps">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Missing keys/caps etc.
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="laptop_broken_sockets" type="checkbox" value="1" id="broken-ports-sockets" class="md-check">
+																		<label for="broken-ports-sockets">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Broken ports/sockets
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="laptop_hdd_defective" type="checkbox" value="1" id="making-noise-defective" class="md-check">
+																		<label for="making-noise-defective">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			HDD making noise/Defective
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="laptop_optical_drive_damage" type="checkbox" value="1" id="optical-drive-physical-damage"
+																					 class="md-check">
+																		<label for="optical-drive-physical-damage">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Optical Drive physical damage
+																		</label>
+																	</div>
+																</div>
+															</div>
+														</section>
+														<section class="row" id="monitor-container">
+															<div class="col-md-12 col-sm-12 col-xs-12">
+																<div class="md-checkbox-list">
+
+																	<div class="md-checkbox">
+																		<input name="lcd_scratches" type="checkbox" value="1" id="lcd_scratches" class="md-check">
+																		<label for="lcd_scratches">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Scratches/Marks/Lines in LCD
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="lcd_display_flickering" type="checkbox" value="1" id="lcd_display_flickering" class="md-check">
+																		<label for="lcd_display_flickering">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Dim Display / Flickering
+																		</label>
+																	</div>
+
+																	<div class="md-checkbox">
+																		<input name="lcd_casing_broken" type="checkbox" value="1" id="lcd_casing_broken" class="md-check">
+																		<label for="lcd_casing_broken">
+																			<span class="inc"></span>
+																			<span class="check"></span>
+																			<span class="box"></span>
+																			Casing broken
+																		</label>
+																	</div>
+
+																</div>
+															</div>
+														</section>
+													</div>
+												</div>
+											</div>
+											<div role="tabpanel" class="tab-pane" id="tab">
+											
+												<div class="form-group">
+													<label for="hdd" class="form-label col-md-3">Internal/External HDD</label>
+													<div class="col-md-9">
+														<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
+															<div class="md-checkbox">
+																<input name="internal_18" type="checkbox" id="checkbox3" value="1" class="md-check">
+																<label for="checkbox3">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	1.8 </label>
+															</div>
+															<div class="md-checkbox">
+																<input name="internal_25" type="checkbox" id="checkbox1" value="1" class="md-check">
+																<label for="checkbox1">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	2.5
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="internal_35" type="checkbox" id="checkbox2" value="1" class="md-check">
+																<label for="checkbox2">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	3.5 </label>
+															</div>
+														
+															<div class="md-checkbox">
+																<input type="checkbox" name="recovery_laptop" value="1" id="recovery_laptop" class="md-check">
+																<label for="recovery_laptop">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Laptop </label>
+															</div>
 														</div>
 													</div>
 												</div>
-											</section>
+
+												<div class="form-group">
+													<label for="server" class="control-label col-md-3">Server</label>
+													<div class="col-md-9">
+														<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
+															<div class="md-checkbox">
+																<input name="recovery_sas" type="checkbox" id="checkbox6" value="1" class="md-check">
+																<label for="checkbox6">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	SAS </label>
+															</div>
+															<div class="md-checkbox">
+																<input name="recovery_nas" type="checkbox" id="recovery_nas" value="1" class="md-check">
+																<label for="recovery_nas">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	NAS </label>
+															</div>
+															<div class="md-checkbox">
+																<input name="recovery_scsi" type="checkbox" id="checkbox4" value="1" class="md-check">
+																<label for="checkbox4">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	SCSI
+																</label>
+															</div>
+
+															<div class="md-checkbox">
+																<input name="recovery_sata" type="checkbox" id="recovery_sata" value="1" class="md-check">
+																<label for="recovery_sata">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	SATA
+																</label>
+															</div>
+												
+															
+														</div>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="memory" class="control-label col-md-3 col-sm-3">Memory Card</label>
+													<div class="col-sm-9 col-md-9">
+														
+														<div class="md-checkbox-inline" style="border: 1px solid #ddd; padding: 5px;">
+															<div class="md-checkbox">
+																<input name="recovery_ssd" type="checkbox" value="1" id="checkbox8" class="md-check">
+																<label for="checkbox8">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	SSD
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="recovery_flash" value="1" type="checkbox" id="checkbox9" class="md-check">
+																<label for="checkbox9">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Flashdrive
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="recovery_mobile" value="1" type="checkbox" id="checkbox10" class="md-check">
+																<label for="checkbox10">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Mobile Phone
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="recovery_tablet" value="1" type="checkbox" id="checkbox11" class="md-check">
+																<label for="checkbox11">
+																	<span></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Tablet PC
+																</label>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="tab-pane" id="tab-accessories">
+												<div class="form-group">
+													<label for="accessories" class="control-label col-md-3"></label>
+													<div class="col-md-9">
+														<section class="row">
+															<div class="col-md-6 col-sm-6 col-xs-12">
+																
+															</div>
+															<div class="col-md-6 col-sm-6 col-xs-12"></div>
+														</section>
+														<div class="md-checkbox-list">
+															<div class="md-checkbox">
+																<input name="accessories_power_cord" type="checkbox"
+																			 value="1" id="accessories_power_cord"
+																			 class="md-check">
+																<label for="accessories_power_cord">
+																	<span class="inc"></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Power adapter /Cord
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="accessories_battery" type="checkbox" value="1"
+																			 id="accessories_battery" class="md-check">
+																<label for="accessories_battery">
+																	<span class="inc"></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Battery
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="accessories_pcmcia" type="checkbox" value="1"
+																			 id="accessories_pcmcia" class="md-check">
+																<label for="accessories_pcmcia">
+																	<span class="inc"></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	PCMCIA card / Carry case
+																</label>
+															</div>
+															<div class="md-checkbox">
+																<input name="accessories_optical_drive" type="checkbox"
+																			 value="1" id="accessories_optical_drive"
+																			 class="md-check">
+																<label for="accessories_optical_drive">
+																	<span class="inc"></span>
+																	<span class="check"></span>
+																	<span class="box"></span>
+																	Optical drive
+																</label>
+															</div>
+															<div class="form-group">
+																<label class="control-label col-md-2">others</label>
+																<div class="col-md-10">
+																	<input autocomplete="off" name="accessories_others" type="text" class="form-control input-sm" id="accessories_others">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
+									<hr>	
 									<div class="form-group">
-										<label class="control-label col-md-3">Problem Reported</label>
+										<label class="control-label col-md-3">  Problem Reported by customer</label>
 										<div class="col-md-9">
-											<textarea autocomplete="off" name="problem_reported" class="form-control input-sm" rows="3"></textarea>
+											<textarea autocomplete="off" name="problem_reported" class="form-control input-sm" rows="2"></textarea>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-md-3">Remarks</label>
 										<div class="col-md-9">
-											<textarea autocomplete="off" name="remarks" class="form-control input-sm" rows="3"></textarea>
+											<textarea autocomplete="off" name="remarks" class="form-control input-sm" rows="2"></textarea>
 										</div>
 									</div>
 									<section class="row">
@@ -499,12 +515,12 @@
 											</button>
 										</div>
 									</section>
-									<div class="form-group">
+									<div class="form-group" style="margin-top: 2%;">
 										<label class="control-label col-md-3"></label>
 										<div class="col-md-9">
-											<button type="button" class="btn btn-default btn-sm reset">Cancel</button>
-											<button type="submit" id="print" class="btn btn-sm green-seagreen button-submit">Save & Print
-												<i class="fa fa-print"></i>
+											<button type="button" class="btn btn-default btn-sm reset"><span class="fa fa-ban"></span> Cancel</button>
+											<button type="submit" id="print" class="btn btn-sm green-seagreen button-submit"><i class="fa fa-print"></i> Save & Print
+												
 											</button>
 										</div>
 									</div>
@@ -527,51 +543,69 @@
 	<script type="text/javascript" src="{{asset('/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('/plugins/select2/select2.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('/plugins/typeahead/typeahead.js')}}"></script>
-	<script type="text/javascript" src="{{asset('/scripts/form-wizard.js')}}"></script>d
+	<script type="text/javascript" src="{{asset('/scripts/form-wizard.js')}}"></script>
 	<script !src="">
 		var images = [];
 		$(document).ready(function () {
 
-			$('input[name=customer_mobile]').focusout(function(){
-				$.ajax({
-				url: '{{ url('service/mobileexist') }}',
-				type: 'get',
-				dataType : 'json',
-				data: {customer_mobile : $(this).val()}
-				}).done(function(response){
-					if(response.exist == 1){
+			var preload_data = [
+			  { id: 'user0', text: 'Disabled User', locked: true}
+			  , { id: 'user1', text: 'Jane Doe'}
+			  , { id: 'user2', text: 'John Doe', locked: true }
+			  , { id: 'user3', text: 'Robert Paulson', locked: true }
+			  , { id: 'user5', text: 'Spongebob Squarepants'}
+			  , { id: 'user6', text: 'Planet Bob' }
+			  , { id: 'user7', text: 'Inigo Montoya' }
+			];
 
-						(new PNotify({
-						    title: 'Customer mobile number exist',
-						    text: 'Do you want to retrieve the Information?',
-						    icon: 'fa fa-question-sign',
-						    hide: false,
-						    confirm: {
-						        confirm: true
-						    },
-						    buttons: {
-						        closer: false,
-						        sticker: false
-						    },
-						    history: {
-						        history: false
-						    }
-						})).get().on('pnotify.confirm', function() {
-						    
-						 $('input[name=customer_name]').val(response.data.customer_name);
-						 $('input[name=customer_mobile]').val(response.data.customer_mobile);
-						 $('input[name=customer_email]').val(response.data.customer_email);
-						 $('input[name=customer_phone]').val(response.data.customer_phone);
-						 $('textarea[name=customer_address]').val(response.data.customer_address);
+			$('input[name=search]').select2({
+				placeholder: 'Search for customer name',
+				allowClear: true,
+				openOnEnter: true,
+				minimumInputLength: 3,
 
-						}).on('pnotify.cancel', function() {
-						    alert('Oh ok. Chicken, I see.');
-						});
+				ajax:{
+					url: '{{ route('customer.search') }}',
+					dataType: 'json',
+					quietMillis: 250,
+
+					data: function(term, page){
 					
+						return { q: term, page: page };
+					},
+
+					results: function(data, page){
+							console.log(data);
+						 var more = (page * 30) < data.total_count; 
+						 return { results: data.items, more: more };
 					}
+				},
+
+
+				query: function (query) {
+
+					var data = {results: []};
+					 query.callback(data);
+
+					  // data.results.push(query);
 					
-				});
+	
+					    // if(query.term.length == 0 || this.text.toUpperCase().indexOf(query.term.toUpperCase()) >= 0 ){
+					    //     data.results.push({id: this.id, text: this.text });
+					    // }
+			
+
+				
+				},
+			
+
+	
+
+
+
 			});
+
+	
 
 
 			$('#serial').focusout(function(){
@@ -624,6 +658,18 @@
 						}
 					},
 
+					customer_mobile: {
+						validators: {
+							notEmpty: {
+								message: 'mobile number is required and cannot be empty'
+							},
+							stringLength: {
+								min: 3,
+								message: 'mobile number must be more than 3 characters long'
+							}
+						}
+					},
+
 					serial: {
 						validators: {
 							notEmpty: {
@@ -640,15 +686,68 @@
 			}).on('success.form.fv', function (e) {
 				e.preventDefault();
 				var $form = $(e.target);
-				$.ajax({
-					url: $(this).attr('action'),
-					type: $(this).attr('method'),
-					data: $(this).serialize() + '&' + $.param({images: images}),
-					dataType: 'JSON'
-				}).done(function (response) {
-					window.open('{{route('service.printoncreate')}}');
-					location.replace('{{route('service.index')}}');
+
+				var self = this;
+
+
+
+				bootbox.confirm({
+					message: '<i class="fa fa-info"></i> Please confirm that the information are correct. You can no longer modify the details after you confirm. Are you sure you want to save and print the service ?',
+					buttons: {
+						cancel: {
+							label: '<i class="fa fa-ban"></i> Cancel',
+							className: 'btn btn-sm btn-default'
+						},
+						confirm:{
+							label: '<i class="fa fa-check"></i> Confirm',
+							className: 'btn btn-success btn-sm'
+						}
+					},
+					callback: function(result){
+					  
+					   if(result){
+					   		
+
+
+						   	$.ajax({
+						   		url: $(self).attr('action'),
+						   		type: $(self).attr('method'),
+						   		data: $(self).serialize() + '&' + $.param({images: images}),
+						   		dataType: 'JSON',
+						   		beforeSend: function(xhr){
+						   			$(".overlay").LoadingOverlay("show", {
+						   		  		image: "",
+						   		  		fontawesome: "fa fa-circle-o-notch fa-spin fa-4x spin"
+						   			});
+						   		}
+						   	}).done(function (response) {
+						   		 
+						   		if (response.success) {
+						   				new PNotify({
+						   				type: 'success',
+						   				delay: 3000,
+						   				title: 'Success!',
+						   				text: response.message,
+						   				after_close: function(notice, timer_hide) {
+						   					 window.open('{{route('service.printoncreate')}}');
+									   		 location.replace('{{route('service.index')}}');
+						   				}
+						   			});
+						   		}
+
+
+						   		
+						   	});
+
+
+					
+					   }
+
+					}
+
 				});
+
+				
 
 
 			}).on('err.form.fv', function (e) {
@@ -692,9 +791,15 @@
 
 		function serviceType() {
 
-			$('#laptop-container').hide();
+			// $('#laptop-container').hide();
 			$('#monitor-container').hide();
 			$('#recovery-container').hide();
+
+			// var service_type_selected = $('input[name=service_type]').val();
+
+			// if(service_type_selected == 'laptop'){
+			// 	$('#laptop-container').show();
+			// }
 
 			$('select[name="service_type"]').change(function () {
 
@@ -706,16 +811,20 @@
 
 				switch (selected) {
 					case 'laptop':
+						$('#monitor-container').find('input[type=checkbox]:checked').removeAttr('checked');
 						$('#laptop-container').show();
 						break;
 					case 'monitor':
+						$('#laptop-container').find('input[type=checkbox]:checked').removeAttr('checked');
 						$('#monitor-container').show();
 						break;
 					case 'recovery':
 						$('#recovery-container').show();
 						break;
 					default:
-					// code block
+						
+						
+						break;
 				}
 			});
 		}
